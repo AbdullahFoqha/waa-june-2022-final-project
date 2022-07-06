@@ -1,15 +1,17 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+./waa-front-end/node_modules
+/waa-front-end//.pnp
+/waa-front-end/.pnp.js
 
 # testing
-/coverage
+/waa-front-end/coverage
 
 # production
-/build
+/waa-front-end/build
+
+.idea/
 
 # misc
 .DS_Store
