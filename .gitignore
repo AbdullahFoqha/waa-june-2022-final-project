@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-./waa-front-end/node_modules
+/waa-front-end/node_modules
 /waa-front-end//.pnp
 /waa-front-end/.pnp.js
 
@@ -12,6 +12,8 @@
 /waa-front-end/build
 
 .idea/
+.vscode/
+
 
 # misc
 .DS_Store
@@ -23,3 +25,32 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+HELP.md
+/waa-backend/target/
+/waa-backend/!.mvn/wrapper/maven-wrapper.jar
+/waa-backend/!**/src/main/**/target/
+/waa-backend/!**/src/test/**/target/
+
+### STS ###
+/waa-backend/.apt_generated
+/waa-backend/.classpath
+/waa-backend/.factorypath
+/waa-backend/.project
+/waa-backend/.settings
+/waa-backend/.springBeans
+/waa-backend/.sts4-cache
+
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/waa-backend/nbproject/private/
+/waa-backend/nbbuild/
+/waa-backend/dist/
+/waa-backend/nbdist/
+/waa-backend/.nb-gradle/
+/waa-backend/build/
+/waa-backend/!**/src/main/**/build/
+/waa-backend/!**/src/test/**/build/
