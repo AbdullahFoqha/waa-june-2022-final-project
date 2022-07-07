@@ -1,15 +1,15 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/waa-front-end/node_modules
-/waa-front-end//.pnp
-/waa-front-end/.pnp.js
+/waa-frontend/node_modules
+/waa-frontend//.pnp
+/waa-frontend/.pnp.js
 
 # testing
-/waa-front-end/coverage
+/waa-frontend/coverage
 
 # production
-/waa-front-end/build
+/waa-frontend/build
 
 .idea/
 .vscode/
