@@ -22,8 +22,8 @@ public class JobAdvertisementController {
     }
 
     @GetMapping
-    public List<DTOEntity> GetAll() {
-        return jobAdvertisementService.lstGetAll();
+    public ResponseEntity<List<DTOEntity>> GetAll() {
+        return ResponseEntity.ok(jobAdvertisementService.lstGetAll());
     }
 
     @GetMapping("/{id}")
@@ -33,15 +33,15 @@ public class JobAdvertisementController {
     }
 
     @PostMapping
-    public JobAdvertisementDto Insert(@RequestBody JobAdvertisementDto jobAdvertisement) {
+    public ResponseEntity<JobAdvertisementDto> Insert(@RequestBody JobAdvertisementDto jobAdvertisement) {
         jobAdvertisement.setId(jobAdvertisementService.Insert(jobAdvertisement));
-        return jobAdvertisement;
+        return ResponseEntity.ok(jobAdvertisement);
     }
 
     @PutMapping
-    public JobAdvertisementDto Update(@RequestBody JobAdvertisementDto jobAdvertisement) {
+    public ResponseEntity<JobAdvertisementDto> Update(@RequestBody JobAdvertisementDto jobAdvertisement) {
        jobAdvertisementService.Update(jobAdvertisement);
-       return jobAdvertisement;
+       return ResponseEntity.ok(jobAdvertisement);
     }
 
     @DeleteMapping("/{id}")
