@@ -19,9 +19,10 @@ public class User {
     private LocalDateTime LastLoggedInAt;
     private boolean active;
 
+    public User() {}
     public User(String password, LocalDateTime lastLoggedInAt, boolean active) {
         this.password = password;
-        LastLoggedInAt = lastLoggedInAt;
+        this.LastLoggedInAt = lastLoggedInAt;
         this.active = active;
     }
 }

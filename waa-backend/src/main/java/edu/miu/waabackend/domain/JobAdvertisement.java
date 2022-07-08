@@ -12,10 +12,11 @@ public class JobAdvertisement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private List<Tag> tags;
+    @OneToOne
+    private Tag tag;
     private String description;
     private String benefits;
-    private List<File> files;
+    //private List<File> files;
     @ManyToOne
     @JoinColumn
     private Student student;
