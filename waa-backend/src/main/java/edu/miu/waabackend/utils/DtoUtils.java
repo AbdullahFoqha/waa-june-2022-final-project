@@ -1,4 +1,4 @@
-package edu.miu.waabackend.Utils;
+package edu.miu.waabackend.utils;
 
 import edu.miu.waabackend.dto.DTOEntity;
 import org.modelmapper.ModelMapper;
