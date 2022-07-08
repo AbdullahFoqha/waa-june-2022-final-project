@@ -3,7 +3,6 @@ package edu.miu.waabackend.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class Student extends User{
     @OneToMany(mappedBy = "student")
     private List<AppliedJobs> appliedJobs;
 
+    public Student() {}
     public Student(String email, String password, String firstName, String lastname, Department major, float gpa) {
         super(password, LocalDateTime.now(), true);
         this.email = email;

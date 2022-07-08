@@ -5,7 +5,7 @@ import edu.miu.waabackend.domain.Student;
 import lombok.Data;
 
 @Data
-public class AppliedJobDto {
+public class AppliedJobDto implements DTOEntity {
     private JobAdvertisement job;
     private int count;
     private Student student;

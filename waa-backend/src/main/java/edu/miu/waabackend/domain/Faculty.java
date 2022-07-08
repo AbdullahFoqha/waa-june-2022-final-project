@@ -26,6 +26,7 @@ public class Faculty extends User{
     @OneToMany(mappedBy = "faculty")
     private List<Comments> comments;
 
+    public Faculty() {}
     public Faculty(String email, String password, String firstName, String lastname, Department department) {
         super(password, LocalDateTime.now(), true);
         this.email = email;
