@@ -2,10 +2,7 @@ package edu.miu.waabackend.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.File;
 import java.util.List;
 
@@ -19,4 +16,7 @@ public class JobAdvertisement {
     private String description;
     private String benefits;
     private List<File> files;
+    @ManyToOne
+    @JoinColumn
+    private Student student;
 }

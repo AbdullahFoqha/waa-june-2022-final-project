@@ -6,16 +6,14 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class AppliedJobs {
+public class Comments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    @OneToOne()
-    @JoinColumn(name = "job_fk")
-    private JobAdvertisement job;
-    private int count;
+    private String comment;
     @ManyToOne
     @JoinColumn
-    private Student student;
+    private Faculty faculty;
+    private Long student_Id;
 }

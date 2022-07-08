@@ -2,11 +2,9 @@ package edu.miu.waabackend.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Faculty extends User{
@@ -18,6 +16,12 @@ public class Faculty extends User{
     private String firstName;
     private String lastname;
     private Department department;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+
+    @OneToMany(mappedBy = "faculty")
+    private List<Comments> comments;
 
     public Faculty(Long id, String email, String password, String firstName, String lastname, Department department) {
         super(password, LocalDateTime.now(), true);
