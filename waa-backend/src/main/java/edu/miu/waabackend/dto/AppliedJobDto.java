@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class AppliedJobDto implements DTOEntity {
+    private Long Id;
     private JobAdvertisement job;
     private int count;
     private Student student;

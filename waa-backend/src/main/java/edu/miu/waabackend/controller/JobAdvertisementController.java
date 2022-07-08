@@ -4,12 +4,14 @@ import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.JobAdvertisementDto;
 import edu.miu.waabackend.service.IJobAdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "Jobs/")
+@RequestMapping("jobs")
 public class JobAdvertisementController {
 
     private IJobAdvertisementService jobAdvertisementService;
@@ -24,24 +26,27 @@ public class JobAdvertisementController {
         return jobAdvertisementService.lstGetAll();
     }
 
-    @GetMapping("{id}")
-    public DTOEntity GetByPK(@PathVariable long id){
-        return jobAdvertisementService.GetByPK(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<DTOEntity> GetByPK(@PathVariable long id){
+        DTOEntity jobAdvertisement = jobAdvertisementService.GetByPK(id);
+        return ResponseEntity.ok(jobAdvertisement);
     }
+
     @PostMapping
     public JobAdvertisementDto Insert(@RequestBody JobAdvertisementDto jobAdvertisement) {
         jobAdvertisement.setId(jobAdvertisementService.Insert(jobAdvertisement));
-
         return jobAdvertisement;
     }
 
     @PutMapping
-    public long Update(@RequestBody JobAdvertisementDto jobAdvertisement) {
-        return jobAdvertisementService.Update(jobAdvertisement);
+    public JobAdvertisementDto Update(@RequestBody JobAdvertisementDto jobAdvertisement) {
+       jobAdvertisementService.Update(jobAdvertisement);
+       return jobAdvertisement;
     }
 
-    @PutMapping("{id}")
+    @DeleteMapping("/{id}")
     public long Delete(@PathVariable long id) {
-        return jobAdvertisementService.Delete(id);
+        jobAdvertisementService.Delete(id);
+        return id;
     }
 }

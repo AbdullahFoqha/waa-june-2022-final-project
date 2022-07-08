@@ -1,5 +1,6 @@
 package edu.miu.waabackend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Student extends User{
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +26,10 @@ public class Student extends User{
     private User user;
 
     @OneToMany(mappedBy = "student")
+    @JsonIgnore
     private List<JobAdvertisement> jobAdvertisement;
 
     @OneToMany(mappedBy = "student")
+    @JsonIgnore
     private List<AppliedJobs> appliedJobs;
-
-    public Student() {}
-    public Student(String email, String password, String firstName, String lastname, Department major, float gpa) {
-        super(password, LocalDateTime.now(), true);
-        this.email = email;
-        this.firstName = firstName;
-        this.lastname = lastname;
-        this.major = major;
-        this.gpa = gpa;
-    }
 }

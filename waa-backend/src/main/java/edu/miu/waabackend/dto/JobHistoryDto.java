@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class JobHistoryDto implements DTOEntity{
-    private List<Tag> tags;
+public class JobHistoryDto implements DTOEntity {
+    private Long Id;
+    private Tag tag;
     private String companyName;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

@@ -35,11 +35,13 @@ public class JobAdvertisementService implements IJobAdvertisementService {
 
     @Override
     public DTOEntity GetByPK(long id) {
-        JobAdvertisement jobAdvertisementObj = jobAdvertisementRepository.findById(id).orElse(null);
-        if(jobAdvertisementObj != null)
+        try {
+            JobAdvertisement jobAdvertisementObj = jobAdvertisementRepository.findById(id).orElse(null);
             return dtoUtils.convertToDto(jobAdvertisementObj, new JobAdvertisementDto());
-
-        return null;
+        }
+        catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
@@ -49,7 +51,7 @@ public class JobAdvertisementService implements IJobAdvertisementService {
             return jobAdvertisementRepository.save(jobAdvertisementObj).getId();
         }
         catch (Exception ex) {
-            return 0;
+            throw ex;
         }
     }
 
@@ -61,7 +63,7 @@ public class JobAdvertisementService implements IJobAdvertisementService {
             return 1;
         }
         catch (Exception ex) {
-            return 0;
+            throw ex;
         }
     }
 
@@ -72,7 +74,7 @@ public class JobAdvertisementService implements IJobAdvertisementService {
             return 1;
         }
         catch (Exception ex) {
-            return 0;
+            throw ex;
         }
     }
 }

@@ -8,11 +8,11 @@ import java.io.File;
 import java.util.List;
 
 @Data
-public class JobAdvertisementDto implements DTOEntity{
-    private Long id;
-    private List<Tag> tags;
+public class JobAdvertisementDto implements DTOEntity {
+    private Long Id;
+    private Tag tag;
     private String description;
     private String benefits;
-    private List<File> files;
+    //private List<File> files;
     private Student student;
 }
