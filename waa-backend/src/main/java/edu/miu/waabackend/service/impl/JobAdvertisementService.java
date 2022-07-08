@@ -34,7 +34,7 @@ public class JobAdvertisementService implements IJobAdvertisementService {
     }
 
     @Override
-    public DTOEntity GetByPK(Long id) {
+    public DTOEntity GetByPK(long id) {
         JobAdvertisement jobAdvertisementObj = jobAdvertisementRepository.findById(id).orElse(null);
         if(jobAdvertisementObj != null)
             return dtoUtils.convertToDto(jobAdvertisementObj, new JobAdvertisementDto());
@@ -43,7 +43,18 @@ public class JobAdvertisementService implements IJobAdvertisementService {
     }
 
     @Override
-    public int Insert(DTOEntity jobDto) {
+    public long Insert(DTOEntity jobDto) {
+        try {
+            JobAdvertisement jobAdvertisementObj = (JobAdvertisement) dtoUtils.convertToEntity(jobDto, new JobAdvertisement());
+            return jobAdvertisementRepository.save(jobAdvertisementObj).getId();
+        }
+        catch (Exception ex) {
+            return 0;
+        }
+    }
+
+    @Override
+    public long Update(DTOEntity jobDto) {
         try {
             JobAdvertisement jobAdvertisementObj = (JobAdvertisement) dtoUtils.convertToEntity(jobDto, new JobAdvertisement());
             jobAdvertisementRepository.save(jobAdvertisementObj);
@@ -55,19 +66,7 @@ public class JobAdvertisementService implements IJobAdvertisementService {
     }
 
     @Override
-    public int Update(DTOEntity jobDto) {
-        try {
-            JobAdvertisement jobAdvertisementObj = (JobAdvertisement) dtoUtils.convertToEntity(jobDto, new JobAdvertisement());
-            jobAdvertisementRepository.save(jobAdvertisementObj);
-            return 1;
-        }
-        catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    @Override
-    public int Delete(Long id) {
+    public long Delete(long id) {
         try {
             jobAdvertisementRepository.deleteById(id);
             return 1;

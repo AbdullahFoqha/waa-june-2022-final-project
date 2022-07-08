@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class JobAdvertisementDto implements DTOEntity{
+    private Long id;
     private List<Tag> tags;
     private String description;
     private String benefits;
