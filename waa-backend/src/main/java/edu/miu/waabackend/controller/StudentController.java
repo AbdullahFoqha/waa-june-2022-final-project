@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "students/")
+@RequestMapping( "/students")
 public class StudentController {
 
     private IStudentService studentService;
@@ -23,12 +23,13 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @GetMapping
     public ResponseEntity<List<DTOEntity>> getAllStudents() {
         return ResponseEntity.ok(studentService.lstGetAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DTOEntity> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<DTOEntity> getStudentById(@PathVariable long id) {
         return ResponseEntity.ok(studentService.GetByPK(id));
     }
 
@@ -45,7 +46,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id) {
+    public void deleteStudent(@PathVariable long id) {
         studentService.Delete(id);
 
     }
