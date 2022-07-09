@@ -4,7 +4,6 @@ import {useKeycloak} from '@react-keycloak/web'
 
 
 function App() {
-
 	const { keycloak, initialized } = useKeycloak()
 
 	return (<div className="App">
@@ -16,6 +15,10 @@ function App() {
 			{keycloak.authenticated && <button onClick={() => keycloak.logout()}>
 				Logout
 			</button>}
+
+			{keycloak.authenticated && <div>
+				{keycloak.token}
+			</div>}
 		</header>
 	</div>)
 

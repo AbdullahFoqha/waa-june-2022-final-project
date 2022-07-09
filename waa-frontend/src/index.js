@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { ReactKeycloakProvider } from "@react-keycloak/web";
+import {ReactKeycloakProvider} from '@react-keycloak/web'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import keycloak from './config/security/keycloak'
