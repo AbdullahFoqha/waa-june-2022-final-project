@@ -12,6 +12,10 @@ const validationSchema = yup.object().shape({
     .string("Enter your password")
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
+  confirmPassword: yup
+    .string("Enter your password")
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
 });
 
 const Signup = () => {
@@ -115,8 +119,8 @@ const Signup = () => {
                   variant="outlined"
                   margin="dense"
                 />
-                {errors.password && touched.password ? (
-                  <div style={{ color: "red" }}>{errors.password}</div>
+                {errors.confirmPassword && touched.confirmPassword ? (
+                  <div style={{ color: "red" }}>{errors.confirmPassword}</div>
                 ) : null}
               </Grid>
               <Grid item>

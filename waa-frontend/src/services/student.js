@@ -1,22 +1,27 @@
-import client from './client'
+import client from "./client";
 
+const baseUrl = "http://localhost:9090/students";
 
-const baseUrl = '/students'
+export const getStudents = () => async (onSuccess, onFail) => {
+  const response = await client.get(`${baseUrl}`);
+  if (response.code === 1) {
+    onSuccess(response);
+  } else {
+    onFail(response);
+  }
+};
 
-const getStudents = async () => await client.get(`${baseUrl}`)
+const getStudentById = async (id) => await client.get(`${baseUrl}/${id}`);
 
-const getStudentById = async (id) => await client.get(`${baseUrl}/${id}`)
+const deleteStudentById = async (id) => await client.delete(`${baseUrl}/${id}`);
 
-const deleteStudentById = async (id) => await client.delete(`${baseUrl}/${id}`)
+const updateStudentById = async (id) => await client.put(`${baseUrl}/${id}`);
 
-const updateStudentById = async (id) => await client.put(`${baseUrl}/${id}`)
-
-const createStudent = async (id) => await client.post(`${baseUrl}/${id}`)
+const createStudent = async (id) => await client.post(`${baseUrl}/${id}`);
 
 export default {
-	getStudents,
-	getStudentById,
-	deleteStudentById,
-	updateStudentById,
-	createStudent
-}
+  getStudentById,
+  deleteStudentById,
+  updateStudentById,
+  createStudent,
+};

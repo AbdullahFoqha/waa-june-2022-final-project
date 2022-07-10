@@ -114,25 +114,6 @@ const Profile = () => {
                 ) : null}
               </Grid>
               <Grid item>
-                <Field
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <TextField
-                      fullWidth
-                      label="Confirm Password"
-                      type="password"
-                      {...field}
-                    />
-                  )}
-                  variant="outlined"
-                  margin="dense"
-                />
-                {errors.password && touched.password ? (
-                  <div style={{ color: "red" }}>{errors.password}</div>
-                ) : null}
-              </Grid>
-              <Grid item>
                 <Button
                   color="primary"
                   variant="contained"

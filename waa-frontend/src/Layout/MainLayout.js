@@ -26,12 +26,17 @@ const MainLayout = (props) => {
           <Typography
             variant="h6"
             component="a"
-            href="/"
+            href="/students"
             sx={{ flexGrow: 1, color: "inherit", textDecoration: "none" }}
           >
             Students
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" href="/SignUp">
+            Sign Up
+          </Button>
+          <Button color="inherit" href="/SignIn">
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
       <div style={{ margin: "0 auto", marginTop: "100px" }}>
