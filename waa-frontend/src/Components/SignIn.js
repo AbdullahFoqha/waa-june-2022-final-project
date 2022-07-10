@@ -12,13 +12,9 @@ const validationSchema = yup.object().shape({
     .string("Enter your password")
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
-  confirmPassword: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
 });
 
-const Signup = () => {
+const SignIn = () => {
   return (
     <Formik
       initialValues={{
@@ -41,36 +37,8 @@ const Signup = () => {
           }}
         >
           <form>
-            <h1>Sign up</h1>
+            <h1>Sign in</h1>
             <Grid container direction={"column"} spacing={5}>
-              <Grid item>
-                <Field
-                  id="firstName"
-                  name="firstName"
-                  render={({ field }) => (
-                    <TextField fullWidth label="First Name" {...field} />
-                  )}
-                  variant="outlined"
-                  margin="dense"
-                />
-                {errors.firstName && touched.firstName ? (
-                  <div style={{ color: "red" }}>{errors.firstName}</div>
-                ) : null}
-              </Grid>
-              <Grid item>
-                <Field
-                  id="lastName"
-                  name="lastName"
-                  render={({ field }) => (
-                    <TextField fullWidth label="Last Name" {...field} />
-                  )}
-                  variant="outlined"
-                  margin="dense"
-                />
-                {errors.lastName && touched.lastName ? (
-                  <div style={{ color: "red" }}>{errors.lastName}</div>
-                ) : null}
-              </Grid>
               <Grid item>
                 <Field
                   id="email"
@@ -105,32 +73,13 @@ const Signup = () => {
                 ) : null}
               </Grid>
               <Grid item>
-                <Field
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <TextField
-                      fullWidth
-                      label="Confirm Password"
-                      type="password"
-                      {...field}
-                    />
-                  )}
-                  variant="outlined"
-                  margin="dense"
-                />
-                {errors.confirmPassword && touched.confirmPassword ? (
-                  <div style={{ color: "red" }}>{errors.confirmPassword}</div>
-                ) : null}
-              </Grid>
-              <Grid item>
                 <Button
                   color="primary"
                   variant="contained"
                   fullWidth
                   type="submit"
                 >
-                  Sign Up
+                  Login
                 </Button>
               </Grid>
             </Grid>
@@ -141,4 +90,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignIn;

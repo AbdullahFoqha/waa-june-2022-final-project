@@ -1,7 +1,8 @@
 import React from "react";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Stack, Avatar } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -12,13 +13,10 @@ const validationSchema = yup.object().shape({
     .string("Enter your password")
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
-  confirmPassword: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
 });
 
-const Signup = () => {
+const Profile = (props) => {
+  const location = useLocation();
   return (
     <Formik
       initialValues={{
@@ -40,15 +38,33 @@ const Signup = () => {
             height: "auto",
           }}
         >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "10px",
+            }}
+          >
+            <Stack direction="row" spacing={2}>
+              <Avatar
+                src="/broken-image.jpg"
+                sx={{ width: "70px", height: "70px" }}
+              />
+            </Stack>
+          </div>
           <form>
-            <h1>Sign up</h1>
             <Grid container direction={"column"} spacing={5}>
               <Grid item>
                 <Field
                   id="firstName"
                   name="firstName"
                   render={({ field }) => (
-                    <TextField fullWidth label="First Name" {...field} />
+                    <TextField
+                      fullWidth
+                      label="First Name"
+                      {...field}
+                      value={location.state?.firstName}
+                    />
                   )}
                   variant="outlined"
                   margin="dense"
@@ -62,7 +78,12 @@ const Signup = () => {
                   id="lastName"
                   name="lastName"
                   render={({ field }) => (
-                    <TextField fullWidth label="Last Name" {...field} />
+                    <TextField
+                      fullWidth
+                      label="Last Name"
+                      {...field}
+                      value={location.state?.lastName}
+                    />
                   )}
                   variant="outlined"
                   margin="dense"
@@ -76,7 +97,12 @@ const Signup = () => {
                   id="email"
                   name="email"
                   render={({ field }) => (
-                    <TextField fullWidth label="Email" {...field} />
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      {...field}
+                      value={location.state?.email}
+                    />
                   )}
                   variant="outlined"
                   margin="dense"
@@ -86,51 +112,13 @@ const Signup = () => {
                 ) : null}
               </Grid>
               <Grid item>
-                <Field
-                  id="password"
-                  name="password"
-                  render={({ field }) => (
-                    <TextField
-                      fullWidth
-                      label="Password"
-                      type="password"
-                      {...field}
-                    />
-                  )}
-                  variant="outlined"
-                  margin="dense"
-                />
-                {errors.password && touched.password ? (
-                  <div style={{ color: "red" }}>{errors.password}</div>
-                ) : null}
-              </Grid>
-              <Grid item>
-                <Field
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <TextField
-                      fullWidth
-                      label="Confirm Password"
-                      type="password"
-                      {...field}
-                    />
-                  )}
-                  variant="outlined"
-                  margin="dense"
-                />
-                {errors.confirmPassword && touched.confirmPassword ? (
-                  <div style={{ color: "red" }}>{errors.confirmPassword}</div>
-                ) : null}
-              </Grid>
-              <Grid item>
                 <Button
                   color="primary"
                   variant="contained"
                   fullWidth
                   type="submit"
                 >
-                  Sign Up
+                  Save
                 </Button>
               </Grid>
             </Grid>
@@ -141,4 +129,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Profile;
