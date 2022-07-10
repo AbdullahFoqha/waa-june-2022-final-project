@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Routes from "./Routes";
+import Routes from "./routes";
 
 const App = () => {
   return (

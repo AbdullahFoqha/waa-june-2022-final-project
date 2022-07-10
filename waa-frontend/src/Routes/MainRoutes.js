@@ -1,11 +1,12 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
-import MainLayout from "../Layout/MainLayout";
+import JobsAdvertisements from "../components/JobsAdvertisements";
+import MainLayout from "../layout/MainLayout";
 
-const Signup = lazy(() => import("../Components/SignUp"));
-const Signin = lazy(() => import("../Components/SignIn"));
-const Profile = lazy(() => import("../Components/Profile"));
-const StudentsData = lazy(() => import("../Components/Students"));
+const Signup = lazy(() => import("../components/SignUp"));
+const Signin = lazy(() => import("../components/SignIn"));
+const Profile = lazy(() => import("../components/Profile"));
+const StudentsData = lazy(() => import("../components/Students"));
 
 const MainRoutes = {
   path: "/",
@@ -26,6 +27,10 @@ const MainRoutes = {
     {
       path: "/Students",
       element: <StudentsData />,
+    },
+    {
+      path: "/JobsAdvertisements",
+      element: <JobsAdvertisements />,
     },
     {
       path: "*",
