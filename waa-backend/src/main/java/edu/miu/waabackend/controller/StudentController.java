@@ -48,6 +48,5 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable long id) {
         studentService.Delete(id);
-
     }
 }
