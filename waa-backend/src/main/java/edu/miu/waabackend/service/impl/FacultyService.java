@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class FacultyService implements IFacultyService {
 
-    private FacultyRepository facultyRepository;
+    private final FacultyRepository facultyRepository;
 
     private DtoUtils dtoUtils;
 

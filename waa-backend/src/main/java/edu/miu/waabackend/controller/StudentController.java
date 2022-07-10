@@ -1,28 +1,27 @@
 package edu.miu.waabackend.controller;
 
-import edu.miu.waabackend.domain.Student;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
 import edu.miu.waabackend.service.IStudentService;
-import edu.miu.waabackend.service.impl.StudentService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
 @RequestMapping(name = "students/")
 public class StudentController {
 
-    private IStudentService studentService;
+    private final IStudentService studentService;
 
     @Autowired
     public StudentController(IStudentService studentService) {
         this.studentService = studentService;
     }
 
+    @RolesAllowed("faculty")
     public ResponseEntity<List<DTOEntity>> getAllStudents() {
         return ResponseEntity.ok(studentService.lstGetAll());
     }

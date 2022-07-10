@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("jobs")
 public class JobAdvertisementController {
 
-    private IJobAdvertisementService jobAdvertisementService;
+    private final IJobAdvertisementService jobAdvertisementService;
 
     @Autowired
     public JobAdvertisementController(IJobAdvertisementService jobAdvertisementService) {
