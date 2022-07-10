@@ -2,16 +2,26 @@ import { Grid, Button } from "@mui/material";
 import ReactDataTable from "./DataTable";
 import { getStudents } from "../services/student";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StudentsData = (props) => {
-  const init = {
-    firstName: "Yaser",
-    lastName: "Alqasem",
-    email: "yalqasem.miu.edu",
-    major: "Software Engineer",
-    gpa: "3.50",
-  };
-  const [lstStudents, setStudents] = useState([init]);
+  const init = [
+    {
+      firstName: "Yaser",
+      lastName: "Alqasem",
+      email: "yalqasem.miu.edu",
+      major: "Software Engineer",
+      gpa: "3.50",
+    },
+    {
+      firstName: "Abdullah",
+      lastName: "Alfoqha",
+      email: "alfoqha.miu.edu",
+      major: "Computer Science",
+      gpa: "3.80",
+    },
+  ];
+  const [lstStudents, setStudents] = useState(init);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +29,11 @@ const StudentsData = (props) => {
     };
     //fetchData();
   }, []);
+
+  let navigate = useNavigate();
+  const handleClick = (row) => {
+    navigate("/Profile", { state: row });
+  };
 
   const columns = [
     { name: "First Name", selector: (row) => row.firstName },
@@ -29,7 +44,13 @@ const StudentsData = (props) => {
     {
       name: "Action",
       selector: (row) => (
-        <Button color="primary" variant="contained" fullWidth type="button">
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="button"
+          onClick={() => handleClick(row)}
+        >
           Info
         </Button>
       ),

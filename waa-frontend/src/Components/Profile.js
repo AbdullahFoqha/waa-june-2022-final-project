@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import { Button, Grid, TextField, Stack, Avatar } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -14,7 +15,8 @@ const validationSchema = yup.object().shape({
     .required("Password is required"),
 });
 
-const Profile = () => {
+const Profile = (props) => {
+  const location = useLocation();
   return (
     <Formik
       initialValues={{
@@ -57,7 +59,12 @@ const Profile = () => {
                   id="firstName"
                   name="firstName"
                   render={({ field }) => (
-                    <TextField fullWidth label="First Name" {...field} />
+                    <TextField
+                      fullWidth
+                      label="First Name"
+                      {...field}
+                      value={location.state?.firstName}
+                    />
                   )}
                   variant="outlined"
                   margin="dense"
@@ -71,7 +78,12 @@ const Profile = () => {
                   id="lastName"
                   name="lastName"
                   render={({ field }) => (
-                    <TextField fullWidth label="Last Name" {...field} />
+                    <TextField
+                      fullWidth
+                      label="Last Name"
+                      {...field}
+                      value={location.state?.lastName}
+                    />
                   )}
                   variant="outlined"
                   margin="dense"
@@ -85,32 +97,18 @@ const Profile = () => {
                   id="email"
                   name="email"
                   render={({ field }) => (
-                    <TextField fullWidth label="Email" {...field} />
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      {...field}
+                      value={location.state?.email}
+                    />
                   )}
                   variant="outlined"
                   margin="dense"
                 />
                 {errors.email && touched.email ? (
                   <div style={{ color: "red" }}>{errors.email}</div>
-                ) : null}
-              </Grid>
-              <Grid item>
-                <Field
-                  id="password"
-                  name="password"
-                  render={({ field }) => (
-                    <TextField
-                      fullWidth
-                      label="Password"
-                      type="password"
-                      {...field}
-                    />
-                  )}
-                  variant="outlined"
-                  margin="dense"
-                />
-                {errors.password && touched.password ? (
-                  <div style={{ color: "red" }}>{errors.password}</div>
                 ) : null}
               </Grid>
               <Grid item>
