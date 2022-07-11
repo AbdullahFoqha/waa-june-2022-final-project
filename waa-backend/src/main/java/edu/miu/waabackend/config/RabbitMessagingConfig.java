@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMessagingConfig {
-
+    public static final String QUEUE_ONE = "firstQueue";
     @Bean
     public Queue queueOne() {
-        return new Queue(RoutingValues.QUEUE_ONE.toString());
+        return new Queue(QUEUE_ONE);
     }
 
     @Bean
