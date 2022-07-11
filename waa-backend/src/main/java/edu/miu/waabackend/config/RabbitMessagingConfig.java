@@ -11,23 +11,20 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMessagingConfig {
-    public static final String QUEUE_ONE = "first_queue";
-    public static final String EXCHANGE_ONE = "first_exchange";
-    public static final String ROUTING_KEY_ONE = "routing_key_one";
 
     @Bean
     public Queue queueOne() {
-        return new Queue(QUEUE_ONE);
+        return new Queue(RoutingValues.QUEUE_ONE.toString());
     }
 
     @Bean
     public TopicExchange exchangeOne() {
-        return new TopicExchange(EXCHANGE_ONE);
+        return new TopicExchange(RoutingValues.EXCHANGE_ONE.toString());
     }
 
     @Bean
     public Binding bindingOne(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY_ONE);
+        return BindingBuilder.bind(queue).to(exchange).with(RoutingValues.ROUTING_KEY_ONE.toString());
     }
 
     @Bean

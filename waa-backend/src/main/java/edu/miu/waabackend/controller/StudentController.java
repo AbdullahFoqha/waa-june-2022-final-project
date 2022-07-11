@@ -1,8 +1,10 @@
 package edu.miu.waabackend.controller;
 
+import edu.miu.waabackend.config.RoutingValues;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
 import edu.miu.waabackend.service.IStudentService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,13 @@ public class StudentController {
 
     private final IStudentService studentService;
 
+    //student publisher
+    private final RabbitTemplate rabbitTemplate;
+
     @Autowired
-    public StudentController(IStudentService studentService) {
+    public StudentController(IStudentService studentService, RabbitTemplate rabbitTemplate) {
         this.studentService = studentService;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @RolesAllowed("faculty")
@@ -35,6 +41,9 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<StudentDto> saveStudent(@RequestBody StudentDto student) {
         studentService.Insert(student);
+        //sending obj
+        rabbitTemplate.convertAndSend(RoutingValues.EXCHANGE_ONE.toString(),RoutingValues.ROUTING_KEY_ONE.toString(),student);
+        //
         return ResponseEntity.ok(student);
     }
 
