@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MessagingConfig {
+public class RabbitMessagingConfig {
     public static final String QUEUE_ONE = "first_queue";
     public static final String EXCHANGE_ONE = "first_exchange";
     public static final String ROUTING_KEY_ONE = "routing_key_one";

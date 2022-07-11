@@ -1,9 +1,15 @@
 package edu.miu.waabackend.dto;
 
 import edu.miu.waabackend.domain.Department;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class StudentDto implements DTOEntity {
     private Long Id;
     private String email;
