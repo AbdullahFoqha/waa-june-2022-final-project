@@ -1,5 +1,5 @@
 import { Grid, Button } from "@mui/material";
-import ReactDataTable from "./DataTable";
+import ReactDataTable from "./common/DataTable";
 import { getStudents } from "../services/student";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

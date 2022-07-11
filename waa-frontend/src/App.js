@@ -1,12 +1,13 @@
-import { Suspense } from "react";
-import Routes from "./routes";
+import {Suspense} from 'react'
+import Routes from './routes'
+
 
 const App = () => {
-  return (
-    <Suspense>
-      <Routes />
-    </Suspense>
-  );
-};
+	return (
+		<Suspense>
+			<Routes/>
+		</Suspense>
+	)
+}
 
-export default App;
+export default App
