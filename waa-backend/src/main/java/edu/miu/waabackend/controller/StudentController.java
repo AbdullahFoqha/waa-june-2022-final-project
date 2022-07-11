@@ -1,9 +1,11 @@
 package edu.miu.waabackend.controller;
 
 import edu.miu.waabackend.config.RoutingValues;
+import edu.miu.waabackend.domain.Student;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
 import edu.miu.waabackend.service.IStudentService;
+import org.apache.coyote.Response;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,5 +58,38 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable long id) {
         studentService.Delete(id);
+    }
+
+    //For the faculty functions
+    //Faculty can filter students:
+    //by state.
+    //by city.
+    //by major.
+    //by name.
+    //by student id.
+
+    public List<Student> filterStudentByState(@RequestParam String stateName){
+        List<Student> students = studentService.getStudentByState(stateName);
+        return students;
+    }
+
+    public List<Student> filterStudentByCity(@RequestParam String city){
+        List<Student> students = studentService.getStudentByCity(city);
+        return students;
+    }
+
+    public List<Student> filterStudentByMajor(@RequestParam String major){
+        List<Student> students = studentService.getStudentByMajor(major);
+        return students;
+    }
+
+    public List<Student> filterStudentByLastName(@RequestParam String lastName){
+        List<Student> students = studentService.getStudentByLastName(lastName);
+        return students;
+    }
+
+    public Student filterStudentById(@RequestParam Long id){
+        Student student = studentService.getStudentById(id);
+        return student;
     }
 }

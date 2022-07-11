@@ -20,6 +20,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     public List<Student> getStudentsByMajor(Department department);
     public List<Student> getStudentsByLastname(String name);
 
+    public Student getStudentByMajor(String name);
+
     public Student getStudentsById(Long id);
 
 }

@@ -15,7 +15,7 @@ public interface IStudentService {
     public List<Student> getStudentByState(String stateName);
     public List<Student> getStudentByLastName(String lastName);
     public List<Student> getStudentByCity(String cityName );
-    public List<Student> getStudentByMajor(Department major);
+    public List<Student> getStudentByMajor(String major);
 
     public Student getStudentById(Long id);
  }

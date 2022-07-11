@@ -28,8 +28,7 @@ public class StudentService implements IStudentService {
     public List<DTOEntity> lstGetAll() {
         try {
             return dtoUtils.convertToListDto(studentRepository.findAll(), new StudentDto());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
@@ -37,7 +36,7 @@ public class StudentService implements IStudentService {
     @Override
     public DTOEntity GetByPK(Long id) {
         Student studentObj = studentRepository.findById(id).orElse(null);
-        if(studentObj != null)
+        if (studentObj != null)
             return dtoUtils.convertToDto(studentObj, new StudentDto());
 
         return null;
@@ -49,8 +48,7 @@ public class StudentService implements IStudentService {
             Student studentObj = (Student) dtoUtils.convertToEntity(studentDto, new Student());
             studentRepository.save(studentObj);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -61,8 +59,7 @@ public class StudentService implements IStudentService {
             Student studentObj = (Student) dtoUtils.convertToEntity(studentDto, new Student());
             studentRepository.save(studentObj);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -72,8 +69,7 @@ public class StudentService implements IStudentService {
         try {
             studentRepository.deleteById(id);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -94,8 +90,12 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public List<Student> getStudentByMajor(Department major) {
-        return studentRepository.getStudentsByMajor(major);
+    public List<Student> getStudentByMajor(String major) {
+        return studentRepository.getStudentsByMajor(getStudentByDepartmentName(major).getMajor());
+    }
+
+    private Student getStudentByDepartmentName(String major){
+        return studentRepository.getStudentByMajor(major);
     }
 
     @Override
