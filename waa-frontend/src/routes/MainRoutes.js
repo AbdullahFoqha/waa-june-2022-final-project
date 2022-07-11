@@ -5,7 +5,6 @@ import MainLayout from '../layout/MainLayout'
 import Dashboard from '../components/Dashboard'
 
 
-const Signup = lazy(() => import('../components/SignUp'))
 const Profile = lazy(() => import('../components/Profile'))
 const StudentsData = lazy(() => import('../components/Students'))
 
@@ -16,10 +15,6 @@ const MainRoutes = {
 		{
 			path: '/dashboard',
 			element: <Dashboard/>
-		},
-		{
-			path: '/SignUp',
-			element: <Signup/>
 		},
 		{
 			path: '/Profile',

@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Avatar from '@mui/material/Avatar'
 import {useKeycloak} from '@react-keycloak/web'
 import RenderIf from './common/RenderIf'
+import {useNavigate} from 'react-router-dom'
 
 
 const pages = ['Students', 'Jobs Advertisements']
@@ -16,6 +17,8 @@ const settings = ['Profile']
 const settingsUrls = ['/profile']
 
 const NavBar = () => {
+	const navigate = useNavigate()
+
 	const {
 		keycloak: {
 			logout,
@@ -38,14 +41,15 @@ const NavBar = () => {
 		<AppBar>
 			<Toolbar>
 				<AdbIcon sx={styles.icon}/>
-				<Typography variant="h6" noWrap component="a" href="/" sx={[styles.logo, isLoggedIn ? { flexGrow: 0 } : { flexGrow: 1 }]}>
+				<Typography variant="h6" noWrap component="a" onClick={() => navigate('/')}
+							sx={[styles.logo, isLoggedIn ? { flexGrow: 0 } : { flexGrow: 1 }]}>
 					LOGO
 				</Typography>
 
 				<RenderIf condition={isLoggedIn}>
 					<Box sx={styles.navContainer}>
 						{pages.map((page, index) => (
-							<Typography key={page} component="a" href={pagesUrls[index]} sx={styles.navItem}>
+							<Typography key={page} component="a" onClick={() => navigate(pagesUrls[index])} sx={styles.navItem}>
 								{page}
 							</Typography>
 						))}
@@ -57,7 +61,7 @@ const NavBar = () => {
 					}}>
 						<Typography key={'name'} component="a" sx={[styles.navItem, {
 							marginRight: '1rem',
-							textTransformation: 'capitalize'
+							textTransform: 'capitalize'
 						}]}>
 							{tokenParsed?.given_name}
 						</Typography>
@@ -84,7 +88,8 @@ const NavBar = () => {
 							onClose={handleCloseUserMenu}>
 							{settings.map((setting, index) => (
 								<MenuItem key={setting} onClick={handleCloseUserMenu}>
-									<Typography component="a" href={settingsUrls[index]} textAlign="center" sx={styles.settingsItem}>
+									<Typography component="a" onClick={() => navigate(settingsUrls[index])} textAlign="center"
+												sx={styles.settingsItem}>
 										{setting}
 									</Typography>
 								</MenuItem>
@@ -103,11 +108,11 @@ const NavBar = () => {
 						flexGrow: 0,
 						alignItems: 'center'
 					}]}>
-						<Typography key={'signUp'} component="a" href={'./signup'} sx={[styles.navItem]}>
+						<Typography key={'signup'} component="a" sx={styles.navItem} onClick={() => navigate('./signup')}>
 							Signup
 						</Typography>
 						<span style={{ marginInline: '1rem' }}>|</span>
-						<Typography onClick={login} key={'signUp'} component="a" sx={[styles.navItem, { cursor: 'pointer' }]}>
+						<Typography onClick={login} key={'login'} component="a" sx={styles.navItem}>
 							Login
 						</Typography>
 					</Box>
@@ -119,6 +124,7 @@ const NavBar = () => {
 
 const styles = {
 	logo: {
+		cursor: 'pointer',
 		mr: 2,
 		display: {
 			xs: 'none',
@@ -158,6 +164,7 @@ const styles = {
 		}
 	},
 	navItem: {
+		cursor: 'pointer',
 		my: 2,
 		flexGrow: 0.01,
 		color: 'white',
@@ -165,6 +172,7 @@ const styles = {
 		textDecoration: 'none'
 	},
 	settingsItem: {
+		cursor: 'pointer',
 		mt: 1,
 		color: 'black',
 		display: 'block',
