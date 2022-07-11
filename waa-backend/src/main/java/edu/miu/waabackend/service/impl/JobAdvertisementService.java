@@ -1,6 +1,7 @@
 package edu.miu.waabackend.service.impl;
 
 import edu.miu.waabackend.domain.JobAdvertisement;
+import edu.miu.waabackend.domain.Tag;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.JobAdvertisementDto;
 import edu.miu.waabackend.repository.JobAdvertisementRepository;
@@ -76,5 +77,25 @@ public class JobAdvertisementService implements IJobAdvertisementService {
         catch (Exception ex) {
             throw ex;
         }
+    }
+
+    @Override
+    public List<JobAdvertisement> findJobAdvertisementsByTag(Tag tag) {
+        return findJobAdvertisementsByTag(tag);
+    }
+
+    @Override
+    public List<JobAdvertisement> findJobAdvertisementsByStateName(String stateName) {
+        return findJobAdvertisementsByStateName(stateName);
+    }
+
+    @Override
+    public List<JobAdvertisement> findJobAdvertisementsByCityName(String cityName) {
+        return findJobAdvertisementsByCityName(cityName);
+    }
+
+    @Override
+    public List<JobAdvertisement> findJobAdvertisementsByCompanyName(String companyName) {
+        return findJobAdvertisementsByCompanyName(companyName);
     }
 }
