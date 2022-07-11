@@ -83,8 +83,4 @@ public class StudentController {
     public List<Student> filterStudentByLastName(@RequestParam String name){
         return studentService.getStudentByLastName(name);
     }
-    @GetMapping("/find")
-    public Student filterStudentById(@RequestParam Long id){
-        return studentService.getStudentById(id);
-    }
 }
