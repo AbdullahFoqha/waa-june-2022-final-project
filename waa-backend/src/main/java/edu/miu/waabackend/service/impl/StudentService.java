@@ -1,5 +1,6 @@
 package edu.miu.waabackend.service.impl;
 
+import edu.miu.waabackend.domain.Department;
 import edu.miu.waabackend.domain.Student;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
@@ -76,4 +77,31 @@ public class StudentService implements IStudentService {
             return 0;
         }
     }
+
+    @Override
+    public List<Student> getStudentByState(String stateName) {
+        return studentRepository.getStudentsByState(stateName);
+    }
+
+    @Override
+    public List<Student> getStudentByLastName(String lastName) {
+        return studentRepository.getStudentsByLastname(lastName);
+    }
+
+    @Override
+    public List<Student> getStudentByCity(String cityName) {
+        return studentRepository.getStudentsByCityName(cityName);
+    }
+
+    @Override
+    public List<Student> getStudentByMajor(Department major) {
+        return studentRepository.getStudentsByMajor(major);
+    }
+
+    @Override
+    public Student getStudentById(Long id) {
+        return studentRepository.getStudentsById(id);
+    }
+
+
 }
