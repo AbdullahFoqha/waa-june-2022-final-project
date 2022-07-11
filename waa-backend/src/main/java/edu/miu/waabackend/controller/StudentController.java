@@ -67,29 +67,24 @@ public class StudentController {
     //by major.
     //by name.
     //by student id.
-
-    public List<Student> filterStudentByState(@RequestParam String stateName){
-        List<Student> students = studentService.getStudentByState(stateName);
-        return students;
+    @GetMapping("/state")
+    public List<Student> filterStudentByState(@RequestParam String name){
+        return studentService.getStudentByState(name);
     }
-
-    public List<Student> filterStudentByCity(@RequestParam String city){
-        List<Student> students = studentService.getStudentByCity(city);
-        return students;
+    @GetMapping("/city")
+    public List<Student> filterStudentByCity(@RequestParam String name){
+        return studentService.getStudentByCity(name);
     }
-
-    public List<Student> filterStudentByMajor(@RequestParam String major){
-        List<Student> students = studentService.getStudentByMajor(major);
-        return students;
+    @GetMapping("/major")
+    public List<Student> filterStudentByMajor(@RequestParam String name){
+        return studentService.getStudentByMajor(name);
     }
-
-    public List<Student> filterStudentByLastName(@RequestParam String lastName){
-        List<Student> students = studentService.getStudentByLastName(lastName);
-        return students;
+    @GetMapping("/lastName")
+    public List<Student> filterStudentByLastName(@RequestParam String name){
+        return studentService.getStudentByLastName(name);
     }
-
+    @GetMapping("/find")
     public Student filterStudentById(@RequestParam Long id){
-        Student student = studentService.getStudentById(id);
-        return student;
+        return studentService.getStudentById(id);
     }
 }

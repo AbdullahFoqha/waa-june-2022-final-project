@@ -81,21 +81,21 @@ public class JobAdvertisementService implements IJobAdvertisementService {
 
     @Override
     public List<JobAdvertisement> findJobAdvertisementsByTag(Tag tag) {
-        return findJobAdvertisementsByTag(tag);
+        return jobAdvertisementRepository.findJobAdvertisementsByTag(tag);
     }
 
     @Override
     public List<JobAdvertisement> findJobAdvertisementsByStateName(String stateName) {
-        return findJobAdvertisementsByStateName(stateName);
+        return jobAdvertisementRepository.findJobAdvertisementsByStateName(stateName);
     }
 
     @Override
     public List<JobAdvertisement> findJobAdvertisementsByCityName(String cityName) {
-        return findJobAdvertisementsByCityName(cityName);
+        return jobAdvertisementRepository.findJobAdvertisementsByCityName(cityName);
     }
 
     @Override
     public List<JobAdvertisement> findJobAdvertisementsByCompanyName(String companyName) {
-        return findJobAdvertisementsByCompanyName(companyName);
+        return jobAdvertisementRepository.findJobAdvertisementsByCompanyName(companyName);
     }
 }
