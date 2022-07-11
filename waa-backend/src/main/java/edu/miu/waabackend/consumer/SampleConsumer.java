@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SampleConsumer {
-
     @RabbitListener(queues = RabbitMessagingConfig.QUEUE_ONE)
     private void consumeMessageFromQueue(StudentDto student){
         System.out.println("Messages Queue One" +student);
