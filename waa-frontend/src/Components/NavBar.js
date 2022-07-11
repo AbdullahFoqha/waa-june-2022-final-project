@@ -41,7 +41,7 @@ const NavBar = () => {
 		<AppBar>
 			<Toolbar>
 				<AdbIcon sx={styles.icon}/>
-				<Typography variant="h6" noWrap component="a" onClick={() => navigate('/')}
+				<Typography variant="h6" noWrap component="a" onClick={() => navigate('/dashboard')}
 							sx={[styles.logo, isLoggedIn ? { flexGrow: 0 } : { flexGrow: 1 }]}>
 					LOGO
 				</Typography>
