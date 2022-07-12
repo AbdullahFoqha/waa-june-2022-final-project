@@ -1,6 +1,8 @@
 package edu.miu.waabackend.controller;
 
+import edu.miu.waabackend.domain.City;
 import edu.miu.waabackend.domain.JobAdvertisement;
+import edu.miu.waabackend.domain.State;
 import edu.miu.waabackend.domain.Tag;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.JobAdvertisementDto;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("jobs")
+@CrossOrigin("http://localhost:3000")
+@RequestMapping("/api/jobs")
 public class JobAdvertisementController {
 
     private final IJobAdvertisementService jobAdvertisementService;
-
     @Autowired
     public JobAdvertisementController(IJobAdvertisementService jobAdvertisementService) {
         this.jobAdvertisementService = jobAdvertisementService;
@@ -69,5 +71,20 @@ public class JobAdvertisementController {
     @GetMapping("/company")
     public List<JobAdvertisement> findJobAdvertisementsByCompanyName(String companyName) {
         return jobAdvertisementService.findJobAdvertisementsByCompanyName(companyName);
+    }
+
+    @GetMapping("/states")
+    public List<State> getAllStates() {
+        return jobAdvertisementService.getAllStates();
+    }
+
+    @GetMapping("/cities")
+    public List<City> getAllCities() {
+        return jobAdvertisementService.getAllCities();
+    }
+
+    @GetMapping("/tags")
+    public List<Tag> getAllTags() {
+        return jobAdvertisementService.getAllTags();
     }
 }

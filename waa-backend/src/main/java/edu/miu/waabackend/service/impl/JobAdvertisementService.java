@@ -1,10 +1,15 @@
 package edu.miu.waabackend.service.impl;
 
+import edu.miu.waabackend.domain.City;
 import edu.miu.waabackend.domain.JobAdvertisement;
+import edu.miu.waabackend.domain.State;
 import edu.miu.waabackend.domain.Tag;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.JobAdvertisementDto;
+import edu.miu.waabackend.repository.CityRepository;
 import edu.miu.waabackend.repository.JobAdvertisementRepository;
+import edu.miu.waabackend.repository.StateRepository;
+import edu.miu.waabackend.repository.TagRepository;
 import edu.miu.waabackend.service.IJobAdvertisementService;
 import edu.miu.waabackend.utils.DtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +21,17 @@ import java.util.List;
 public class JobAdvertisementService implements IJobAdvertisementService {
 
     private JobAdvertisementRepository jobAdvertisementRepository;
+    private TagRepository tagRepository;
+    private StateRepository stateRepository;
+    private CityRepository cityRepository;
     private DtoUtils dtoUtils;
 
     @Autowired
-    public JobAdvertisementService(JobAdvertisementRepository jobAdvertisementRepository, DtoUtils dtoUtils) {
+    public JobAdvertisementService(JobAdvertisementRepository jobAdvertisementRepository, TagRepository tagRepository, StateRepository stateRepository, CityRepository cityRepository, DtoUtils dtoUtils) {
         this.jobAdvertisementRepository = jobAdvertisementRepository;
+        this.tagRepository = tagRepository;
+        this.stateRepository = stateRepository;
+        this.cityRepository = cityRepository;
         this.dtoUtils = dtoUtils;
     }
 
@@ -97,5 +108,20 @@ public class JobAdvertisementService implements IJobAdvertisementService {
     @Override
     public List<JobAdvertisement> findJobAdvertisementsByCompanyName(String companyName) {
         return jobAdvertisementRepository.findJobAdvertisementsByCompanyName(companyName);
+    }
+
+    @Override
+    public List<Tag> getAllTags() {
+        return tagRepository.findAll();
+    }
+
+    @Override
+    public List<State> getAllStates() {
+        return stateRepository.findAll();
+    }
+
+    @Override
+    public List<City> getAllCities() {
+        return cityRepository.findAll();
     }
 }
