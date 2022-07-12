@@ -98,10 +98,6 @@ public class StudentService implements IStudentService {
         return studentRepository.getStudentByMajor(major);
     }
 
-    @Override
-    public Student getStudentById(Long id) {
-        return studentRepository.getStudentsById(id);
-    }
 
 
 }
