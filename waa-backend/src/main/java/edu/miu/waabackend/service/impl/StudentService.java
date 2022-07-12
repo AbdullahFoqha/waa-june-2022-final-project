@@ -1,5 +1,6 @@
 package edu.miu.waabackend.service.impl;
 
+import edu.miu.waabackend.domain.Department;
 import edu.miu.waabackend.domain.Student;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
@@ -27,8 +28,7 @@ public class StudentService implements IStudentService {
     public List<DTOEntity> lstGetAll() {
         try {
             return dtoUtils.convertToListDto(studentRepository.findAll(), new StudentDto());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
@@ -36,7 +36,7 @@ public class StudentService implements IStudentService {
     @Override
     public DTOEntity GetByPK(Long id) {
         Student studentObj = studentRepository.findById(id).orElse(null);
-        if(studentObj != null)
+        if (studentObj != null)
             return dtoUtils.convertToDto(studentObj, new StudentDto());
 
         return null;
@@ -48,8 +48,7 @@ public class StudentService implements IStudentService {
             Student studentObj = (Student) dtoUtils.convertToEntity(studentDto, new Student());
             studentRepository.save(studentObj);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -60,8 +59,7 @@ public class StudentService implements IStudentService {
             Student studentObj = (Student) dtoUtils.convertToEntity(studentDto, new Student());
             studentRepository.save(studentObj);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -71,9 +69,39 @@ public class StudentService implements IStudentService {
         try {
             studentRepository.deleteById(id);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
+
+    @Override
+    public List<Student> getStudentByState(String stateName) {
+        return studentRepository.getStudentsByState(stateName);
+    }
+
+    @Override
+    public List<Student> getStudentByLastName(String lastName) {
+        return studentRepository.getStudentsByLastname(lastName);
+    }
+
+    @Override
+    public List<Student> getStudentByCity(String cityName) {
+        return studentRepository.getStudentsByCityName(cityName);
+    }
+
+    @Override
+    public List<Student> getStudentByMajor(String major) {
+        return studentRepository.getStudentsByMajor(getStudentByDepartmentName(major).getMajor());
+    }
+
+    private Student getStudentByDepartmentName(String major){
+        return studentRepository.getStudentByMajor(major);
+    }
+
+    @Override
+    public Student getStudentById(Long id) {
+        return studentRepository.getStudentsById(id);
+    }
+
+
 }

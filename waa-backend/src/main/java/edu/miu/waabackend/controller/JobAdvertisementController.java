@@ -1,5 +1,7 @@
 package edu.miu.waabackend.controller;
 
+import edu.miu.waabackend.domain.JobAdvertisement;
+import edu.miu.waabackend.domain.Tag;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.JobAdvertisementDto;
 import edu.miu.waabackend.service.IJobAdvertisementService;
@@ -47,5 +49,25 @@ public class JobAdvertisementController {
     public long Delete(@PathVariable long id) {
         jobAdvertisementService.Delete(id);
         return id;
+    }
+
+    @GetMapping("/tag")
+    public List<JobAdvertisement> findJobAdvertisementsByTag(Tag name) {
+        return jobAdvertisementService.findJobAdvertisementsByTag(name);
+    }
+
+    @GetMapping("/state")
+    public List<JobAdvertisement> findJobAdvertisementsByStateName(String stateName) {
+        return jobAdvertisementService.findJobAdvertisementsByStateName(stateName);
+    }
+
+    @GetMapping("/city")
+    public List<JobAdvertisement> findJobAdvertisementsByCityName(String cityName) {
+        return jobAdvertisementService.findJobAdvertisementsByCityName(cityName);
+    }
+
+    @GetMapping("/company")
+    public List<JobAdvertisement> findJobAdvertisementsByCompanyName(String companyName) {
+        return jobAdvertisementService.findJobAdvertisementsByCompanyName(companyName);
     }
 }

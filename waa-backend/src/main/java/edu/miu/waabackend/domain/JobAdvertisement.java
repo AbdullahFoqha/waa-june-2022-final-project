@@ -16,6 +16,11 @@ public class JobAdvertisement {
     private Tag tag;
     private String description;
     private String benefits;
+    //adding new fields
+    private String stateName;
+    private String cityName;
+    private String companyName;
+
     //private List<File> files;
     @ManyToOne
     @JoinColumn

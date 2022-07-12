@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,6 +16,10 @@ public class Student {
     private String email;
     private String firstName;
     private String lastname;
+    ////adding new fields
+    private String state;
+    private String cityName;
+
 
     @OneToOne
     private Department major;
