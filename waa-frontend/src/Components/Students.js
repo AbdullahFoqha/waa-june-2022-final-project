@@ -9,7 +9,7 @@ import RenderIf from './common/RenderIf'
 
 const StudentsData = () => {
 	const [lstStudents, setStudents] = useState([])
-	const { isFaculty } = useRole()
+	const { isFaculty, isStudent } = useRole()
 
 	const fetchData = async () => {
 		const { data } = await getStudents()
