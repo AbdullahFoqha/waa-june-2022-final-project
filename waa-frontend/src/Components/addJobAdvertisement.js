@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Autocomplete, Button, TextField, Grid } from "@mui/material";
+import {
+  addJobAdvertisement,
+  getCities,
+  getStates,
+  getTags,
+} from "../services/job";
 
-const validationSchema = yup.object({
-  tag: yup.string("Select tag").required("Tag is required"),
-  state: yup.string("Select tag").required("State is required"),
-  city: yup.string("Select tag").required("City is required"),
-  companyName: yup.string("Select tag").required("CompanyName is required"),
-  description: yup.string("Select tag").required("Description is required"),
-  benefits: yup.string("Select tag").required("Benefits is required"),
-});
+const tags = [];
+const states = [];
+const cities = [];
 
 const AddJobAdvertisement = () => {
+  const [tagState, setTagState] = useState();
+  const [stateState, setStateState] = useState();
+  const [cityState, setCityState] = useState();
+  const fetchData = async () => {
+    const { data: tagsData } = await getTags();
+    tagsData.map((x) => tags.push({ label: x.name, id: x.id }));
+    setTagState(tags);
+    const { data: statesData } = await getStates();
+    statesData.map((x) => states.push({ label: x.name, id: x.id }));
+    setStateState(states);
+    const { data: citiesData } = await getCities();
+    citiesData.map((x) => cities.push({ label: x.name, id: x.id }));
+    setCityState(cities);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   const { errors, touched, handleSubmit, values, handleChange, setFieldValue } =
     useFormik({
       initialValues: {
@@ -24,9 +42,11 @@ const AddJobAdvertisement = () => {
         benefits: "",
         file: "",
       },
-      validationSchema: validationSchema,
-      onSubmit: (values) => {
-        alert(JSON.stringify(values, null, 2));
+      onSubmit: async (values) => {
+        values.tag = { ...tagState };
+        values.state = { ...stateState };
+        values.city = { ...cityState };
+        await addJobAdvertisement(values);
       },
     });
 
@@ -50,7 +70,7 @@ const AddJobAdvertisement = () => {
                 options={tags}
                 sx={{ width: 600 }}
                 onChange={(event, value) => {
-                  setFieldValue("tagId", value.value);
+                  setTagState(value);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -58,8 +78,7 @@ const AddJobAdvertisement = () => {
                     id="tag"
                     name="tag"
                     label="tag"
-                    value={values?.tag}
-                    onChange={handleChange}
+                    //onChange={handleChange}
                     error={touched.tag && Boolean(errors.tag)}
                     helperText={touched.tag && errors.tag}
                   />
@@ -74,7 +93,7 @@ const AddJobAdvertisement = () => {
                 options={states}
                 sx={{ width: 600 }}
                 onChange={(event, value) => {
-                  setFieldValue("stateId", value.value);
+                  setStateState(value);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -82,8 +101,8 @@ const AddJobAdvertisement = () => {
                     id="state"
                     name="state"
                     label="state"
-                    value={values?.state}
-                    onChange={handleChange}
+                    // value={values?.state}
+                    // onChange={handleChange}
                     error={touched.state && Boolean(errors.state)}
                     helperText={touched.state && errors.state}
                   />
@@ -97,7 +116,9 @@ const AddJobAdvertisement = () => {
                 options={cities}
                 sx={{ width: 600 }}
                 onChange={(event, value) => {
-                  setFieldValue("cityId", value.value);
+                  //   console.log(value);
+                  //   setFieldValue("cityId", value.value);
+                  setCityState(value);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -105,8 +126,8 @@ const AddJobAdvertisement = () => {
                     id="city"
                     name="city"
                     label="city"
-                    value={values?.city}
-                    onChange={handleChange}
+                    //value={values?.city}
+                    //onChange={handleChange}
                     error={touched.city && Boolean(errors.city)}
                     helperText={touched.city && errors.city}
                   />
@@ -158,8 +179,9 @@ const AddJobAdvertisement = () => {
                 variant="contained"
                 fullWidth
                 type="submit"
+                onClick={handleSubmit}
               >
-                Submit
+                Save
               </Button>
             </Grid>
           </Grid>
@@ -170,24 +192,5 @@ const AddJobAdvertisement = () => {
     </>
   );
 };
-
-const tags = [
-  { label: "SD", id: 0 },
-  { label: "Illinois", id: 1 },
-  { label: "Texas", id: 2 },
-  { label: "Iowa", id: 3 },
-];
-const states = [
-  { label: "California", id: 0 },
-  { label: "Illinois", id: 1 },
-  { label: "Texas", id: 2 },
-  { label: "Iowa", id: 3 },
-];
-const cities = [
-  { label: "California", id: 0 },
-  { label: "Illinois", id: 1 },
-  { label: "Texas", id: 2 },
-  { label: "Iowa", id: 3 },
-];
 
 export default AddJobAdvertisement;
