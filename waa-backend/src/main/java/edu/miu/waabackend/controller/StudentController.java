@@ -5,7 +5,6 @@ import edu.miu.waabackend.domain.Student;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
 import edu.miu.waabackend.service.IStudentService;
-import org.apache.coyote.Response;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
-@RequestMapping( "/students")
+@RequestMapping("/students")
 public class StudentController {
 
     private final IStudentService studentService;
@@ -44,7 +43,7 @@ public class StudentController {
     public ResponseEntity<StudentDto> saveStudent(@RequestBody StudentDto student) {
         studentService.Insert(student);
         //sending obj
-        rabbitTemplate.convertAndSend(RoutingValues.EXCHANGE_ONE.toString(),RoutingValues.ROUTING_KEY_ONE.toString(),student);
+        rabbitTemplate.convertAndSend(RoutingValues.EXCHANGE_ONE.toString(), RoutingValues.ROUTING_KEY_ONE.toString(), student);
         //
         return ResponseEntity.ok(student);
     }
@@ -62,25 +61,29 @@ public class StudentController {
 
     //For the faculty functions
     //Faculty can filter students:
-    //by state.
+    //by state.∂
     //by city.
+    //by major.
     //by major.
     //by name.
     //by student id.
     @GetMapping("/state")
-    public List<Student> filterStudentByState(@RequestParam String name){
+    public List<Student> filterStudentByState(@RequestParam String name) {
         return studentService.getStudentByState(name);
     }
+
     @GetMapping("/city")
-    public List<Student> filterStudentByCity(@RequestParam String name){
+    public List<Student> filterStudentByCity(@RequestParam String name) {
         return studentService.getStudentByCity(name);
     }
+
     @GetMapping("/major")
-    public List<Student> filterStudentByMajor(@RequestParam String name){
+    public List<Student> filterStudentByMajor(@RequestParam String name) {
         return studentService.getStudentByMajor(name);
     }
+
     @GetMapping("/lastName")
-    public List<Student> filterStudentByLastName(@RequestParam String name){
+    public List<Student> filterStudentByLastName(@RequestParam String name) {
         return studentService.getStudentByLastName(name);
     }
 }

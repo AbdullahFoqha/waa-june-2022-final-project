@@ -17,5 +17,5 @@ public interface IStudentService {
     public List<Student> getStudentByCity(String cityName );
     public List<Student> getStudentByMajor(String major);
 
-    public Student getStudentById(Long id);
+
  }
