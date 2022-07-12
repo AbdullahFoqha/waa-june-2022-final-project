@@ -2,6 +2,7 @@ import React from 'react'
 import {Formik, Field} from 'formik'
 import * as yup from 'yup'
 import {Button, Grid, TextField} from '@mui/material'
+import {useKeycloak} from '@react-keycloak/web'
 
 
 const validationSchema = yup.object().shape({
@@ -20,6 +21,8 @@ const validationSchema = yup.object().shape({
 })
 
 const Signup = () => {
+	const { keycloak: { register } } = useKeycloak()
+
 	return (
 		<Formik
 			initialValues={{
@@ -28,7 +31,7 @@ const Signup = () => {
 			}}
 			validationSchema={validationSchema}
 			onSubmit={(values) => {
-				alert(JSON.stringify(values, null, 2))
+				register()
 			}}
 		>
 			{({
