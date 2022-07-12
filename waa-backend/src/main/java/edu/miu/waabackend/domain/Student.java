@@ -16,14 +16,12 @@ public class Student {
     private String email;
     private String firstName;
     private String lastname;
-    ////adding new fields
     private String state;
     private String cityName;
-
+    private float gpa;
 
     @OneToOne
     private Department major;
-    private float gpa;
 
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
@@ -35,4 +33,8 @@ public class Student {
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private List<AppliedJobs> appliedJobs;
+
+    @OneToMany(mappedBy = "student")
+    @JsonIgnore
+    private List<Comments> comments;
 }

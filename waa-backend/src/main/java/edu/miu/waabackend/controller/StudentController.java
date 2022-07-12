@@ -8,13 +8,14 @@ import edu.miu.waabackend.service.IStudentService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@CrossOrigin("http://localhost:3000")
+@RequestMapping("/api/students")
 public class StudentController {
 
     private final IStudentService studentService;
@@ -28,8 +29,8 @@ public class StudentController {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @RolesAllowed("faculty")
-    @GetMapping
+    @PreAuthorize("hasRole('student')")
+    @GetMapping(value = "")
     public ResponseEntity<List<DTOEntity>> getAllStudents() {
         return ResponseEntity.ok(studentService.lstGetAll());
     }

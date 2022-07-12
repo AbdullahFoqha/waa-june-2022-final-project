@@ -73,12 +73,12 @@ const Comments = ({ comments, onDelete }) => {
 							</TableHead>
 							<TableBody>
 								{comments.map((comment) => (
-									<TableRow key={comment.text}>
+									<TableRow key={comment.id}>
 										<TableCell>
-											{comment.text}
+											{comment.comment}
 										</TableCell>
 										<TableCell>
-											{comment.faculty.name}
+											{comment.faculty.firstName}
 										</TableCell>
 										<TableCell>
 											<RenderIf condition={userId === comment.faculty.id}>

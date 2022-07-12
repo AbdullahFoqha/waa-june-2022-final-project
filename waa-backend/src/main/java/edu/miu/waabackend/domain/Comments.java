@@ -12,8 +12,12 @@ public class Comments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String comment;
+
     @ManyToOne
     @JoinColumn
     private Faculty faculty;
-    private Long student_Id;
+
+    @ManyToOne
+    @JoinColumn
+    private Student student;
 }
