@@ -94,10 +94,9 @@ public class StudentService implements IStudentService {
         return studentRepository.getStudentsByMajor(getStudentByDepartmentName(major).getMajor());
     }
 
-    private Student getStudentByDepartmentName(String major){
+    private Student getStudentByDepartmentName(String major) {
         return studentRepository.getStudentByMajor(major);
     }
-
 
 
 }

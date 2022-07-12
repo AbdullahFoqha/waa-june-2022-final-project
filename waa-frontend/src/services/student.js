@@ -1,16 +1,9 @@
 import client from './client'
 
 
-const baseUrl = 'http://localhost:9090/students'
+const baseUrl = '/students'
 
-export const getStudents = () => async (onSuccess, onFail) => {
-	const response = await client.get(`${baseUrl}`)
-	if(response.code === 1) {
-		onSuccess(response)
-	} else {
-		onFail(response)
-	}
-}
+export const getStudents = async () => await client.get(`${baseUrl}`)
 
 const getStudentById = async (id) => await client.get(`${baseUrl}/${id}`)
 

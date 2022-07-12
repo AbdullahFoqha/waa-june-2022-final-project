@@ -1,6 +1,5 @@
 package edu.miu.waabackend.dto;
 
-import edu.miu.waabackend.domain.Department;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +14,5 @@ public class FacultyDto implements DTOEntity {
     private String email;
     private String firstName;
     private String lastname;
-    private Department department;
+    private DepartmentDto department;
 }

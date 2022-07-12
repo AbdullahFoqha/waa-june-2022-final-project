@@ -1,14 +1,9 @@
 server:
   port: 9090
 
-spring:
-  h2:
-    console:
-      enabled: true
-
 keycloak:
   realm: waa-server
-  auth-server-url: http://localhost:8080/auth
+  auth-server-url: http://localhost:8080
   resource: springboot-keycloak
   public-client: true
   bearer-only: true

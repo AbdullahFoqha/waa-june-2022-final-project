@@ -1,10 +1,11 @@
 package edu.miu.waabackend.dto;
 
-import edu.miu.waabackend.domain.Department;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -12,9 +13,11 @@ import lombok.ToString;
 @ToString
 public class StudentDto implements DTOEntity {
     private Long Id;
+    private float gpa;
     private String email;
+    private String password;
     private String firstName;
     private String lastname;
-    private Department major;
-    private float gpa;
+    private DepartmentDto major;
+    private List<CommentsDto> comments;
 }
