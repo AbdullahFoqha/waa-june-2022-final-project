@@ -67,11 +67,8 @@ public class StudentController {
         roles.add("faculty");
 //        roles.add("student");
 
-        String id = UUID.randomUUID().toString();
 
         UserRepresentation user = new UserRepresentation();
-
-        user.setId(id);
         user.setUsername(student.getEmail());
         user.setFirstName(student.getFirstName());
         user.setLastName(student.getLastname());
@@ -89,12 +86,10 @@ public class StudentController {
                 .toRepresentation()
         );
 
-        System.out.println(roleToAdd);
-        System.out.println("id ==> " + id);
+        List<UserRepresentation> users = getInstance().search(student.getEmail());
 
-        UserResource userResource = getInstance().get(id);
+        UserResource userResource = getInstance().get(users.get(0).getId());
         userResource.roles().realmLevel().add(roleToAdd);
-
 
         return ResponseEntity.ok(student);
     }
