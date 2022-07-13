@@ -10,8 +10,11 @@ import java.util.List;
 @Data
 public class Student {
     @Id
+    private String userId;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+
     private float gpa;
     private String email;
     private String firstName;
@@ -21,7 +24,6 @@ public class Student {
 
     @OneToOne
     private City city;
-    private String userId;
 
     @OneToOne
     private Department major;

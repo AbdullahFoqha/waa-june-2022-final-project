@@ -38,7 +38,7 @@ public class FacultyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DTOEntity> getFacultyById(@PathVariable long id) {
+    public ResponseEntity<DTOEntity> getFacultyById(@PathVariable String id) {
         return ResponseEntity.ok(facultyService.GetByPK(id));
     }
 
@@ -94,7 +94,7 @@ public class FacultyController {
                 .serverUrl("http://localhost:8080")
                 .realm("waa-server")
                 .clientId("admin-cli")
-                .clientSecret("c7giVqTqfrElCDdnhmIi4q1VCd7XKF8w")
+                .clientSecret("YG9valQNIwJBqkoUOUwO6f7qRHvHddgo")
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .resteasyClient(new ResteasyClientBuilder()
                         .connectionPoolSize(10)

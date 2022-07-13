@@ -10,13 +10,14 @@ import java.util.List;
 @Data
 public class Faculty {
     @Id
+    private String userId;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     private String email;
     private String firstName;
     private String lastName;
-    private String userId;
 
     @OneToOne()
     private Department department;

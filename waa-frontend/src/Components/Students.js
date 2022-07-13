@@ -1,6 +1,6 @@
 import {Grid} from '@mui/material'
 import ReactDataTable from './common/DataTable'
-import {getStudents} from '../services/student'
+import studentService from '../services/student'
 import {useEffect, useState} from 'react'
 import Comments from './Comments'
 import useRole from '../config/security/hooks/useRole'
@@ -14,7 +14,7 @@ const StudentsData = () => {
 	const { keycloak: { tokenParsed: {} } } = useKeycloak()
 
 	const fetchData = async () => {
-		const { data } = await getStudents()
+		const { data } = await studentService.getStudents()
 		setStudents(data)
 	}
 
@@ -22,7 +22,8 @@ const StudentsData = () => {
 		fetchData()
 	}, [])
 
-	const handleDelete = (comment, studentId) => {
+	const handleDelete = async (comment, studentId) => {
+		await studentService.deleteCommentById(comment.id)
 		let index = lstStudents.findIndex(s => s.id === studentId)
 		let cloned = [...lstStudents[index].comments]
 		cloned = cloned.filter(c => c.id !== comment.id)

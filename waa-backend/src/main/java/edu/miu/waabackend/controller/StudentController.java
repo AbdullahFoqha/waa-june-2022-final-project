@@ -97,6 +97,11 @@ public class StudentController {
         return ResponseEntity.ok(comment);
     }
 
+    @DeleteMapping("/comments/{id}")
+    public void deletecomment(@PathVariable long id) {
+        commentsService.Delete(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable long id) {
         studentService.Delete(id);

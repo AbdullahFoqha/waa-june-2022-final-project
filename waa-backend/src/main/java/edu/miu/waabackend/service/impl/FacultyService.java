@@ -1,8 +1,10 @@
 package edu.miu.waabackend.service.impl;
 
 import edu.miu.waabackend.domain.Faculty;
+import edu.miu.waabackend.domain.Student;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.FacultyDto;
+import edu.miu.waabackend.dto.StudentDto;
 import edu.miu.waabackend.repository.FacultyRepository;
 import edu.miu.waabackend.service.IFacultyService;
 import edu.miu.waabackend.utils.DtoUtils;
@@ -34,12 +36,11 @@ public class FacultyService implements IFacultyService {
     }
 
     @Override
-    public DTOEntity GetByPK(Long id) {
-        Faculty facultyObj = facultyRepository.findById(id).orElse(null);
-        if (facultyObj != null)
-            return dtoUtils.convertToDto(facultyObj, new FacultyDto());
+    public DTOEntity GetByPK(String id) {
+        List<Faculty> lstStudent = facultyRepository.findAll();
+        Faculty facultyObj = lstStudent.stream().filter(x -> x.getUserId().equals(id)).findFirst().get();
+        return dtoUtils.convertToDto(facultyObj, new FacultyDto());
 
-        return null;
     }
 
     @Override

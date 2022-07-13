@@ -25,7 +25,8 @@ const Comments = ({ comments, onDelete, studentId }) => {
 	const handleCommentOpen = () => setAddComment(true)
 	const handleCommentClose = async (comment) => {
 		if(comment) {
-			await studentService.addComment({ comment, faculty: { userId }, student: { userId: studentId } })
+			await studentService.addComment({ comment, faculty: { userId }, student: { userId: studentId }, idOfTheStudent: studentId })
+			comments.push({ comment, faculty: { userId, firstName: given_name } })
 		}
 		setAddComment(false)
 	}
@@ -74,7 +75,7 @@ const Comments = ({ comments, onDelete, studentId }) => {
 											{comment.faculty.firstName}
 										</TableCell>
 										<TableCell>
-											<RenderIf condition={userId === comment.faculty.id}>
+											<RenderIf condition={userId === comment.faculty.userId}>
 												<DeleteOutlinedIcon style={{ cursor: 'pointer' }}
 																	onClick={() => onDelete(comment)}/>
 											</RenderIf>
