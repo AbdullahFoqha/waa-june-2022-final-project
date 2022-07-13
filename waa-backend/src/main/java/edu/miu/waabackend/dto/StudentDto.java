@@ -18,6 +18,8 @@ public class StudentDto implements DTOEntity {
     private String password;
     private String firstName;
     private String lastname;
+    private String userId;
+    private String role;
     private DepartmentDto major;
     private List<CommentsDto> comments;
 }

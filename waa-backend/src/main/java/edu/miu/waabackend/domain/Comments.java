@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Data
 public class Comments {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;

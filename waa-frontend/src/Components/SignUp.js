@@ -1,150 +1,120 @@
 import React from 'react'
-import {Formik, Field} from 'formik'
+import {useFormik} from 'formik'
 import * as yup from 'yup'
-import {Button, Grid, TextField} from '@mui/material'
-import {useKeycloak} from '@react-keycloak/web'
+import {Button, FormControlLabel, Grid, Radio, RadioGroup, TextField} from '@mui/material'
 
 
 const validationSchema = yup.object().shape({
 	email: yup
 	.string('Enter your email')
 	.email('Enter a valid email')
-	.required('Email is required'),
-	password: yup
+	.required('Email is required'), firstName: yup.string().required('FirstName is required'), lastName: yup.string()
+																											.required('LastName is required'), password: yup
 	.string('Enter your password')
 	.min(8, 'Password should be of minimum 8 characters length')
-	.required('Password is required'),
-	confirmPassword: yup
+	.required('Password is required'), confirmPassword: yup
 	.string('Enter your password')
+	.oneOf([yup.ref('password'), null], 'Passwords must match')
 	.min(8, 'Password should be of minimum 8 characters length')
 	.required('Password is required')
 })
 
 const Signup = () => {
-	const { keycloak: { register } } = useKeycloak()
+
+	const { errors, touched, handleSubmit, values, handleChange } = useFormik({
+		initialValues: {
+			firstName: '', lastName: '', email: '', password: '', confirmPassword: '',
+		}, validationSchema,
+		onSubmit: () => {
+			console.log({ values })
+		}
+	})
 
 	return (
-		<Formik
-			initialValues={{
-				email: '',
-				password: ''
-			}}
-			validationSchema={validationSchema}
-			onSubmit={(values) => {
-				register()
-			}}
-		>
-			{({
-				errors,
-				touched
-			}) => (
-				<div
-					style={{
-						border: '1px solid #e4e4e4',
-						padding: '30px',
-						paddingTop: '1px',
-						width: '50vh',
-						height: 'auto'
-					}}
-				>
-					<form>
-						<h1>Sign up</h1>
-						<Grid container direction={'column'} spacing={5}>
-							<Grid item>
-								<Field
-									id="firstName"
-									name="firstName"
-									render={({ field }) => (
-										<TextField fullWidth label="First Name" {...field} />
-									)}
-									variant="outlined"
-									margin="dense"
-								/>
-								{errors.firstName && touched.firstName ? (
-									<div style={{ color: 'red' }}>{errors.firstName}</div>
-								) : null}
-							</Grid>
-							<Grid item>
-								<Field
-									id="lastName"
-									name="lastName"
-									render={({ field }) => (
-										<TextField fullWidth label="Last Name" {...field} />
-									)}
-									variant="outlined"
-									margin="dense"
-								/>
-								{errors.lastName && touched.lastName ? (
-									<div style={{ color: 'red' }}>{errors.lastName}</div>
-								) : null}
-							</Grid>
-							<Grid item>
-								<Field
-									id="email"
-									name="email"
-									render={({ field }) => (
-										<TextField fullWidth label="Email" {...field} />
-									)}
-									variant="outlined"
-									margin="dense"
-								/>
-								{errors.email && touched.email ? (
-									<div style={{ color: 'red' }}>{errors.email}</div>
-								) : null}
-							</Grid>
-							<Grid item>
-								<Field
-									id="password"
-									name="password"
-									render={({ field }) => (
-										<TextField
-											fullWidth
-											label="Password"
-											type="password"
-											{...field}
-										/>
-									)}
-									variant="outlined"
-									margin="dense"
-								/>
-								{errors.password && touched.password ? (
-									<div style={{ color: 'red' }}>{errors.password}</div>
-								) : null}
-							</Grid>
-							<Grid item>
-								<Field
-									id="confirmPassword"
-									name="confirmPassword"
-									render={({ field }) => (
-										<TextField
-											fullWidth
-											label="Confirm Password"
-											type="password"
-											{...field}
-										/>
-									)}
-									variant="outlined"
-									margin="dense"
-								/>
-								{errors.confirmPassword && touched.confirmPassword ? (
-									<div style={{ color: 'red' }}>{errors.confirmPassword}</div>
-								) : null}
-							</Grid>
-							<Grid item>
-								<Button
-									color="primary"
-									variant="contained"
-									fullWidth
-									type="submit"
-								>
-									Sign Up
-								</Button>
-							</Grid>
-						</Grid>
-					</form>
-				</div>
-			)}
-		</Formik>
+		<div style={{ border: '1px solid #e4e4e4', padding: '30px', paddingTop: '1px', width: '50vh', height: 'auto' }}>
+			<form onSubmit={handleSubmit}>
+				<h1>Sign up</h1>
+				<Grid container direction={'column'} spacing={5}>
+					<Grid item>
+						<TextField
+							fullWidth
+							id="firstName"
+							name="firstName"
+							label="firstName"
+							variant="outlined"
+							value={values.firstName}
+							onChange={handleChange}
+							error={touched.firstName && Boolean(errors.firstName)}
+							helperText={touched.firstName && errors.firstName}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							fullWidth
+							id="lastName"
+							name="lastName"
+							label="lastName"
+							variant="outlined"
+							value={values.lastName}
+							onChange={handleChange}
+							error={touched.lastName && Boolean(errors.lastName)}
+							helperText={touched.lastName && errors.lastName}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							fullWidth
+							id="email"
+							name="email"
+							label="email"
+							variant="outlined"
+							value={values.email}
+							onChange={handleChange}
+							error={touched.email && Boolean(errors.email)}
+							helperText={touched.email && errors.email}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							fullWidth
+							id="password"
+							name="password"
+							label="password"
+							variant="outlined"
+							type="password"
+							value={values.password}
+							onChange={handleChange}
+							error={touched.password && Boolean(errors.password)}
+							helperText={touched.password && errors.password}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							fullWidth
+							type="password"
+							id="confirmPassword"
+							name="confirmPassword"
+							label="confirmPassword"
+							variant="outlined"
+							value={values.confirmPassword}
+							onChange={handleChange}
+							error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+							helperText={touched.confirmPassword && errors.confirmPassword}
+						/>
+					</Grid>
+					<Grid item>
+						<RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" onChange={handleChange}>
+							<FormControlLabel value="student" control={<Radio />} label="Student"/>
+							<FormControlLabel value="faculty" control={<Radio/>} label="Faculty"/>
+						</RadioGroup>
+					</Grid>
+
+					<Grid item>
+						<Button color="primary" variant="contained" fullWidth type="submit"> Sign Up </Button>
+					</Grid>
+				</Grid>
+			</form>
+		</div>
 	)
 }
 

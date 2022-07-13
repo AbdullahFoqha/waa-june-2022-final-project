@@ -1,7 +1,7 @@
 package edu.miu.waabackend.controller;
 
+import edu.miu.waabackend.config.RoutingValues;
 import edu.miu.waabackend.domain.Student;
-import edu.miu.waabackend.domain.User;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
 import edu.miu.waabackend.service.IStudentService;
@@ -20,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.core.Response;
 import java.util.*;
 
 @RestController
@@ -29,8 +28,6 @@ import java.util.*;
 public class StudentController {
 
     private final IStudentService studentService;
-
-    //student publisher
     private final RabbitTemplate rabbitTemplate;
 
     @Autowired
@@ -52,11 +49,7 @@ public class StudentController {
 
     @PostMapping(value = "")
     public ResponseEntity<StudentDto> saveStudent(@RequestBody StudentDto student) {
-
-
-        studentService.Insert(student);
-//        //sending obj
-//        rabbitTemplate.convertAndSend(RoutingValues.EXCHANGE_ONE.toString(), RoutingValues.ROUTING_KEY_ONE.toString(), student);
+        rabbitTemplate.convertAndSend(RoutingValues.EXCHANGE_ONE.toString(), RoutingValues.ROUTING_KEY_ONE.toString(), student);
 
         CredentialRepresentation passwordCredentials = new CredentialRepresentation();
         passwordCredentials.setTemporary(false);
@@ -65,8 +58,6 @@ public class StudentController {
 
         List<String> roles = new ArrayList<>();
         roles.add("faculty");
-//        roles.add("student");
-
 
         UserRepresentation user = new UserRepresentation();
         user.setUsername(student.getEmail());
@@ -91,6 +82,11 @@ public class StudentController {
         UserResource userResource = getInstance().get(users.get(0).getId());
         userResource.roles().realmLevel().add(roleToAdd);
 
+        System.out.println("id ==> " + users.get(0).getId());
+
+        student.setUserId(users.get(0).getId());
+        studentService.Insert(student);
+
         return ResponseEntity.ok(student);
     }
 
@@ -105,14 +101,6 @@ public class StudentController {
         studentService.Delete(id);
     }
 
-    //For the faculty functions
-    //Faculty can filter students:
-    //by state.∂
-    //by city.
-    //by major.
-    //by major.
-    //by name.
-    //by student id.
     @GetMapping("/state")
     public List<Student> filterStudentByState(@RequestParam String name) {
         return studentService.getStudentByState(name);

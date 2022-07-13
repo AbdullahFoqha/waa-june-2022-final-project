@@ -9,22 +9,19 @@ import java.util.List;
 @Entity
 @Data
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    private float gpa;
     private String email;
     private String firstName;
     private String lastname;
     private String state;
     private String cityName;
-    private float gpa;
+    private String userId;
 
     @OneToOne
     private Department major;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private User user;
 
     @OneToMany(mappedBy = "student")
     @JsonIgnore
