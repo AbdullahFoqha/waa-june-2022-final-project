@@ -1,10 +1,8 @@
-import axios from 'axios'
-import keycloak from '../config/security/keycloak'
-
+import axios from "axios";
+import keycloak from "../config/security/keycloak";
 
 const client = axios.create({
-	baseURL: 'http://localhost:9090/api',
-	headers: { 'Authorization': `Bearer ${keycloak.token}` }
-})
+  baseURL: "http://localhost:9090/api",
+});
 
-export default client
+export default client;

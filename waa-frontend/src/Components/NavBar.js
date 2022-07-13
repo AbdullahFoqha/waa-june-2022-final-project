@@ -10,8 +10,8 @@ import { useKeycloak } from "@react-keycloak/web";
 import RenderIf from "./common/RenderIf";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Students", "Jobs Advertisements"];
-const pagesUrls = ["/AddJobAdvertisement", "/JobsAdvertisements"];
+const pages = ["Students", "Jobs Advertisements", "Add Job Advertisement"];
+const pagesUrls = ["/Students", "/JobsAdvertisements", "/addJobAdvertisement"];
 const settings = ["Profile"];
 const settingsUrls = ["/profile"];
 
