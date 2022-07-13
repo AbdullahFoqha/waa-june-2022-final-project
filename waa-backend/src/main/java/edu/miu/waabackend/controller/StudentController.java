@@ -36,7 +36,6 @@ public class StudentController {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @PreAuthorize("hasRole('student')")
     @GetMapping(value = "")
     public ResponseEntity<List<DTOEntity>> getAllStudents() {
         return ResponseEntity.ok(studentService.lstGetAll());
@@ -56,15 +55,11 @@ public class StudentController {
         passwordCredentials.setType(CredentialRepresentation.PASSWORD);
         passwordCredentials.setValue(student.getPassword());
 
-        List<String> roles = new ArrayList<>();
-        roles.add("faculty");
-
         UserRepresentation user = new UserRepresentation();
         user.setUsername(student.getEmail());
         user.setFirstName(student.getFirstName());
-        user.setLastName(student.getLastname());
+        user.setLastName(student.getLastName());
         user.setEmail(student.getEmail());
-        user.setRealmRoles(roles);
         user.setCredentials(Collections.singletonList(passwordCredentials));
         user.setEnabled(true);
         getInstance().create(user);
@@ -73,16 +68,13 @@ public class StudentController {
         roleToAdd.add(getKeycloak()
                 .realm("waa-server")
                 .roles()
-                .get("faculty")
-                .toRepresentation()
-        );
+                .get("student")
+                .toRepresentation());
 
         List<UserRepresentation> users = getInstance().search(student.getEmail());
 
         UserResource userResource = getInstance().get(users.get(0).getId());
         userResource.roles().realmLevel().add(roleToAdd);
-
-        System.out.println("id ==> " + users.get(0).getId());
 
         student.setUserId(users.get(0).getId());
         studentService.Insert(student);
@@ -130,8 +122,7 @@ public class StudentController {
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .resteasyClient(new ResteasyClientBuilder()
                         .connectionPoolSize(10)
-                        .build()
-                )
+                        .build())
                 .build();
     }
 

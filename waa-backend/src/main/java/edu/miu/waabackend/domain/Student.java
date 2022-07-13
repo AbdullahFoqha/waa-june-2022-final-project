@@ -15,7 +15,7 @@ public class Student {
     private float gpa;
     private String email;
     private String firstName;
-    private String lastname;
+    private String lastName;
     private String state;
     private String cityName;
     private String userId;

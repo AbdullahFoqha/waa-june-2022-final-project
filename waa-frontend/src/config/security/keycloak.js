@@ -7,4 +7,6 @@ const keycloak = new Keycloak({
 	realm: 'waa-server'
 })
 
+keycloak.init()
+
 export default keycloak

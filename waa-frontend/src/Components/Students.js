@@ -5,15 +5,16 @@ import {useEffect, useState} from 'react'
 import Comments from './Comments'
 import useRole from '../config/security/hooks/useRole'
 import RenderIf from './common/RenderIf'
+import {useKeycloak} from '@react-keycloak/web'
 
 
 const StudentsData = () => {
 	const [lstStudents, setStudents] = useState([])
-	const { isFaculty, isStudent } = useRole()
+	const { isFaculty } = useRole()
+	const { keycloak: { tokenParsed: {} } } = useKeycloak()
 
 	const fetchData = async () => {
 		const { data } = await getStudents()
-
 		setStudents(data)
 	}
 
@@ -32,11 +33,11 @@ const StudentsData = () => {
 	const columns = [{
 		name: 'First Name', selector: (row) => row.firstName
 	}, {
-		name: 'Last Name', selector: (row) => row.lastname
+		name: 'Last Name', selector: (row) => row.lastName
 	}, {
 		name: 'Email', selector: (row) => row.email
 	}, {
-		name: 'Major', selector: (row) => row.major.name
+		name: 'Major', selector: (row) => row.major?.name
 	}, {
 		name: 'GPA', selector: (row) => row.gpa
 	}, {

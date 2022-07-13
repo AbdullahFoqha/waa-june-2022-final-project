@@ -81,7 +81,7 @@ public class StudentService implements IStudentService {
 
     @Override
     public List<Student> getStudentByLastName(String lastName) {
-        return studentRepository.getStudentsByLastname(lastName);
+        return studentRepository.getStudentsByLastName(lastName);
     }
 
     @Override

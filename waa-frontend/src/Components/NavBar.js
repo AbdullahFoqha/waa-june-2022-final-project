@@ -11,7 +11,7 @@ import RenderIf from "./common/RenderIf";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Students", "Jobs Advertisements"];
-const pagesUrls = ["/AddJobAdvertisement", "/JobsAdvertisements"];
+const pagesUrls = ["/students", "/JobsAdvertisements"];
 const settings = ["Profile"];
 const settingsUrls = ["/profile"];
 
