@@ -16,8 +16,11 @@ public class Student {
     private String email;
     private String firstName;
     private String lastName;
-    private String state;
-    private String cityName;
+    @OneToOne
+    private State state;
+
+    @OneToOne
+    private City city;
     private String userId;
 
     @OneToOne

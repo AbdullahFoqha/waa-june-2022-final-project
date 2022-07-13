@@ -34,8 +34,9 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public DTOEntity GetByPK(Long id) {
-        Student studentObj = studentRepository.findById(id).orElse(null);
+    public DTOEntity GetByPK(String id) {
+        List<Student> lstStudent = studentRepository.findAll();
+        Student studentObj = lstStudent.stream().filter(x -> x.getUserId().equals(id)).findFirst().get();
         if (studentObj != null)
             return dtoUtils.convertToDto(studentObj, new StudentDto());
 
