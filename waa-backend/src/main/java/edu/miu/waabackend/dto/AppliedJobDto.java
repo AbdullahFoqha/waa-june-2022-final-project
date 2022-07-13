@@ -13,5 +13,5 @@ public class AppliedJobDto implements DTOEntity {
     private Long Id;
     private int count;
     private JobAdvertisementDto job;
-    private StudentDto student;
+    private String userId;
 }

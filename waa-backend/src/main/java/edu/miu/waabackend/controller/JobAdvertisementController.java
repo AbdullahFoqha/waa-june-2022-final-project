@@ -4,9 +4,13 @@ import edu.miu.waabackend.domain.City;
 import edu.miu.waabackend.domain.JobAdvertisement;
 import edu.miu.waabackend.domain.State;
 import edu.miu.waabackend.domain.Tag;
+import edu.miu.waabackend.dto.AppliedJobDto;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.JobAdvertisementDto;
+import edu.miu.waabackend.repository.AppliedJobsRepository;
+import edu.miu.waabackend.service.IAppliedJobsService;
 import edu.miu.waabackend.service.IJobAdvertisementService;
+import edu.miu.waabackend.service.impl.AppliedJobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +23,16 @@ import java.util.List;
 public class JobAdvertisementController {
 
     private final IJobAdvertisementService jobAdvertisementService;
+    private final IAppliedJobsService appliedJobsService;
     @Autowired
-    public JobAdvertisementController(IJobAdvertisementService jobAdvertisementService) {
+    public JobAdvertisementController(IJobAdvertisementService jobAdvertisementService, IAppliedJobsService appliedJobsService) {
         this.jobAdvertisementService = jobAdvertisementService;
+        this.appliedJobsService = appliedJobsService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<DTOEntity>> GetAll() {
-        return ResponseEntity.ok(jobAdvertisementService.lstGetAll());
+    @PostMapping("/all")
+    public ResponseEntity<List<DTOEntity>> GetAll(@RequestBody JobAdvertisementDto jobAdvertisementDto) {
+        return ResponseEntity.ok(jobAdvertisementService.lstGetAll(jobAdvertisementDto));
     }
 
     @GetMapping("/{id}")
@@ -86,5 +92,11 @@ public class JobAdvertisementController {
     @GetMapping("/tags")
     public List<Tag> getAllTags() {
         return jobAdvertisementService.getAllTags();
+    }
+
+    @PostMapping("/apply")
+    public ResponseEntity<AppliedJobDto> Insert(@RequestBody AppliedJobDto appliedJob) {
+        appliedJob.setId(appliedJobsService.Insert(appliedJob));
+        return ResponseEntity.ok(appliedJob);
     }
 }

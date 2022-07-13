@@ -126,7 +126,7 @@ public class StudentController {
                 .serverUrl("http://localhost:8080")
                 .realm("waa-server")
                 .clientId("admin-cli")
-                .clientSecret("YG9valQNIwJBqkoUOUwO6f7qRHvHddgo")
+                .clientSecret("c7giVqTqfrElCDdnhmIi4q1VCd7XKF8w")
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .resteasyClient(new ResteasyClientBuilder()
                         .connectionPoolSize(10)

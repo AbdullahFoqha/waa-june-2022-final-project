@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JobAdvertisementService implements IJobAdvertisementService {
@@ -36,9 +37,26 @@ public class JobAdvertisementService implements IJobAdvertisementService {
     }
 
     @Override
-    public List<DTOEntity> lstGetAll() {
+    public List<DTOEntity> lstGetAll(JobAdvertisementDto jobAdvertisementDto) {
         try {
-            return dtoUtils.convertToListDto(jobAdvertisementRepository.findAll(), new JobAdvertisementDto());
+            var result = jobAdvertisementRepository.findAll();
+            if(jobAdvertisementDto.getCompanyName() != "" && jobAdvertisementDto.getCompanyName() != null) {
+                result = result.stream().filter(x -> x.getCompanyName().equals(jobAdvertisementDto.getCompanyName())).collect(Collectors.toList());
+            }
+            if(jobAdvertisementDto.getTag() != null) {
+                if(jobAdvertisementDto.getTag().getId() != null)
+                    result = result.stream().filter(x -> x.getTag().getId().equals(jobAdvertisementDto.getTag().getId())).collect(Collectors.toList());
+            }
+            if(jobAdvertisementDto.getState() != null) {
+                if(jobAdvertisementDto.getState().getId() != null)
+                    result = result.stream().filter(x -> x.getState().getId().equals(jobAdvertisementDto.getState().getId())).collect(Collectors.toList());
+            }
+            if(jobAdvertisementDto.getCity() != null) {
+                if(jobAdvertisementDto.getCity().getId() != null)
+                    result = result.stream().filter(x -> x.getCity().getId().equals(jobAdvertisementDto.getCity().getId())).collect(Collectors.toList());
+            }
+
+            return dtoUtils.convertToListDto(result, new JobAdvertisementDto());
         }
         catch (Exception ex) {
             throw ex;

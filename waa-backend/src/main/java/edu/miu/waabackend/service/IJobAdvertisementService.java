@@ -5,10 +5,12 @@ import edu.miu.waabackend.domain.JobAdvertisement;
 import edu.miu.waabackend.domain.State;
 import edu.miu.waabackend.domain.Tag;
 import edu.miu.waabackend.dto.DTOEntity;
+import edu.miu.waabackend.dto.JobAdvertisementDto;
+
 import java.util.List;
 
 public interface IJobAdvertisementService {
-    public List<DTOEntity> lstGetAll();
+    public List<DTOEntity> lstGetAll(JobAdvertisementDto jobAdvertisementDto);
     public DTOEntity GetByPK(long id);
     public long Insert(DTOEntity jobAdvertisementDto);
     public long Update(DTOEntity jobAdvertisementDto);

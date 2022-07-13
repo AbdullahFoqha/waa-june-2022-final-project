@@ -14,8 +14,5 @@ public class AppliedJobs {
     @OneToOne()
     @JoinColumn(name = "job_fk")
     private JobAdvertisement job;
-    private int count;
-    @ManyToOne
-    @JoinColumn
-    private Student student;
+    private String userId;
 }

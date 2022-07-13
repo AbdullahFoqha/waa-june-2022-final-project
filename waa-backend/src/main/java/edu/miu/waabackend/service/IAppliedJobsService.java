@@ -6,7 +6,7 @@ import java.util.List;
 public interface IAppliedJobsService {
     public List<DTOEntity> lstGetAll();
     public DTOEntity GetByPK(Long id);
-    public int Insert(DTOEntity appliedJobsDto);
-    public int Update(DTOEntity appliedJobsDto);
-    public int Delete(Long id);
+    public long Insert(DTOEntity appliedJobsDto);
+    public long Update(DTOEntity appliedJobsDto);
+    public long Delete(Long id);
 }

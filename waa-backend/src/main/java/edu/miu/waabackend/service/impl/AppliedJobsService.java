@@ -43,7 +43,18 @@ public class AppliedJobsService implements IAppliedJobsService {
     }
 
     @Override
-    public int Insert(DTOEntity appliedJobDto) {
+    public long Insert(DTOEntity appliedJobDto) {
+        try {
+            AppliedJobs appliedJobObj = (AppliedJobs) dtoUtils.convertToEntity(appliedJobDto, new AppliedJobs());
+            return appliedJobsRepository.save(appliedJobObj).getId();
+        }
+        catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    @Override
+    public long Update(DTOEntity appliedJobDto) {
         try {
             AppliedJobs appliedJobObj = (AppliedJobs) dtoUtils.convertToEntity(appliedJobDto, new AppliedJobs());
             appliedJobsRepository.save(appliedJobObj);
@@ -55,19 +66,7 @@ public class AppliedJobsService implements IAppliedJobsService {
     }
 
     @Override
-    public int Update(DTOEntity appliedJobDto) {
-        try {
-            AppliedJobs appliedJobObj = (AppliedJobs) dtoUtils.convertToEntity(appliedJobDto, new AppliedJobs());
-            appliedJobsRepository.save(appliedJobObj);
-            return 1;
-        }
-        catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    @Override
-    public int Delete(Long id) {
+    public long Delete(Long id) {
         try {
             appliedJobsRepository.deleteById(id);
             return 1;
