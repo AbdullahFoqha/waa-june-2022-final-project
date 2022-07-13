@@ -9,18 +9,13 @@ import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    //Faculty can filter students:
-    //by state.
-    //by city.
-    //by major.
-    //by name.
-    //by student id.
-    public List<Student> getStudentsByState(String state);
-    public List<Student> getStudentsByCityName(String city);
-    public List<Student> getStudentsByMajor(Department department);
-    public List<Student> getStudentsByLastname(String name);
+    List<Student> getStudentsByState(String state);
 
-    public Student getStudentByMajor(String name);
+    List<Student> getStudentsByCityName(String city);
 
+    List<Student> getStudentsByMajor(Department department);
 
+    List<Student> getStudentsByLastName(String name);
+
+    Student getStudentByMajor(String name);
 }

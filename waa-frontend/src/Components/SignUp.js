@@ -2,31 +2,44 @@ import React from 'react'
 import {useFormik} from 'formik'
 import * as yup from 'yup'
 import {Button, FormControlLabel, Grid, Radio, RadioGroup, TextField} from '@mui/material'
+import studentService from '../services/student'
+import facultyService from '../services/faculty'
+import {useKeycloak} from '@react-keycloak/web'
+import RenderIf from './common/RenderIf'
 
 
 const validationSchema = yup.object().shape({
-	email: yup
-	.string('Enter your email')
-	.email('Enter a valid email')
-	.required('Email is required'), firstName: yup.string().required('FirstName is required'), lastName: yup.string()
-																											.required('LastName is required'), password: yup
-	.string('Enter your password')
-	.min(8, 'Password should be of minimum 8 characters length')
-	.required('Password is required'), confirmPassword: yup
-	.string('Enter your password')
-	.oneOf([yup.ref('password'), null], 'Passwords must match')
-	.min(8, 'Password should be of minimum 8 characters length')
-	.required('Password is required')
+	email: yup.string('Enter your email')
+			  .email('Enter a valid email')
+			  .required('Email is required'),
+	firstName: yup.string()
+				  .required('FirstName is required'),
+	lastName: yup.string()
+				 .required('LastName is required'),
+	gpa: yup.number(),
+	password: yup.string('Enter your password')
+				 .min(8, 'Password should be of minimum 8 characters length')
+				 .required('Password is required'),
+	confirmPassword: yup.string('Enter your password')
+						.oneOf([yup.ref('password'), null], 'Passwords must match')
+						.min(8, 'Password should be of minimum 8 characters length')
+						.required('Password is required')
 })
 
 const Signup = () => {
+	const { keycloak: { login } } = useKeycloak()
 
 	const { errors, touched, handleSubmit, values, handleChange } = useFormik({
 		initialValues: {
-			firstName: '', lastName: '', email: '', password: '', confirmPassword: '',
+			firstName: '', lastName: '', email: '', password: '', confirmPassword: '', role: '', gpa: 0
 		}, validationSchema,
-		onSubmit: () => {
-			console.log({ values })
+		onSubmit: async (values) => {
+			if(values.role === 'student') {
+				await studentService.createStudent(values)
+			} else {
+				await facultyService.createFaculty(values)
+			}
+			login()
 		}
 	})
 
@@ -102,9 +115,27 @@ const Signup = () => {
 							helperText={touched.confirmPassword && errors.confirmPassword}
 						/>
 					</Grid>
+					<RenderIf condition={values.role === 'student'}>
+						<Grid item>
+							<TextField
+								fullWidth
+								type="number"
+								id="gpa"
+								name="gpa"
+								label="gpa"
+								variant="outlined"
+								value={values.gpa}
+								onChange={handleChange}
+								error={touched.gpa && Boolean(errors.gpa)}
+								helperText={touched.gpa && errors.gpa}
+							/>
+						</Grid>
+					</RenderIf>
 					<Grid item>
-						<RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" onChange={handleChange}>
-							<FormControlLabel value="student" control={<Radio />} label="Student"/>
+						<RadioGroup row aria-labelledby="role-label" name="role"
+									value={values.role}
+									onChange={handleChange}>
+							<FormControlLabel value="student" control={<Radio/>} label="Student"/>
 							<FormControlLabel value="faculty" control={<Radio/>} label="Faculty"/>
 						</RadioGroup>
 					</Grid>

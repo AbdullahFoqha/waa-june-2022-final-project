@@ -28,8 +28,7 @@ public class FacultyService implements IFacultyService {
     public List<DTOEntity> lstGetAll() {
         try {
             return dtoUtils.convertToListDto(facultyRepository.findAll(), new FacultyDto());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw ex;
         }
     }
@@ -37,7 +36,7 @@ public class FacultyService implements IFacultyService {
     @Override
     public DTOEntity GetByPK(Long id) {
         Faculty facultyObj = facultyRepository.findById(id).orElse(null);
-        if(facultyObj != null)
+        if (facultyObj != null)
             return dtoUtils.convertToDto(facultyObj, new FacultyDto());
 
         return null;
@@ -49,8 +48,7 @@ public class FacultyService implements IFacultyService {
             Faculty facultyObj = (Faculty) dtoUtils.convertToEntity(facultyDto, new Faculty());
             facultyRepository.save(facultyObj);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -61,8 +59,7 @@ public class FacultyService implements IFacultyService {
             Faculty facultyObj = (Faculty) dtoUtils.convertToEntity(facultyDto, new Faculty());
             facultyRepository.save(facultyObj);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -72,8 +69,7 @@ public class FacultyService implements IFacultyService {
         try {
             facultyRepository.deleteById(id);
             return 1;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }

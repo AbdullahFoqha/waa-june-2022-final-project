@@ -13,6 +13,8 @@ public class FacultyDto implements DTOEntity {
     private Long Id;
     private String email;
     private String firstName;
-    private String lastname;
+    private String lastName;
+    private String userId;
+    private String password;
     private DepartmentDto department;
 }

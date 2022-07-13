@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const pages = ["Students", "Jobs Advertisements", "Add Job Advertisement"];
 const pagesUrls = ["/Students", "/JobsAdvertisements", "/addJobAdvertisement"];
+
 const settings = ["Profile"];
 const settingsUrls = ["/profile"];
 
