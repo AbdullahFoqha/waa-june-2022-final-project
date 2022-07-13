@@ -8,21 +8,14 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import RenderIf from './common/RenderIf'
 import {useKeycloak} from '@react-keycloak/web'
 import AddComment from './addComment'
+import studentService from '../services/student'
 
 
 const style = {
-	borderRadius: 5,
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: '40rem',
-	bgcolor: 'background.paper',
-	boxShadow: 24,
-	p: 4
+	borderRadius: 5, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '40rem', bgcolor: 'background.paper', boxShadow: 24, p: 4
 }
 
-const Comments = ({ comments, onDelete }) => {
+const Comments = ({ comments, onDelete, studentId }) => {
 	const { keycloak: { subject: userId, tokenParsed: { given_name } } } = useKeycloak()
 	const [open, setOpen] = useState(false)
 	const handleOpen = () => setOpen(true)
@@ -30,9 +23,9 @@ const Comments = ({ comments, onDelete }) => {
 
 	const [addComment, setAddComment] = useState(false)
 	const handleCommentOpen = () => setAddComment(true)
-	const handleCommentClose = (comment) => {
+	const handleCommentClose = async (comment) => {
 		if(comment) {
-			comments.push({ text: comment, faculty: { name: given_name, id: userId } })
+			await studentService.addComment({ comment, faculty: { userId }, student: { userId: studentId } })
 		}
 		setAddComment(false)
 	}

@@ -2,8 +2,10 @@ package edu.miu.waabackend.controller;
 
 import edu.miu.waabackend.config.RoutingValues;
 import edu.miu.waabackend.domain.Student;
+import edu.miu.waabackend.dto.CommentsDto;
 import edu.miu.waabackend.dto.DTOEntity;
 import edu.miu.waabackend.dto.StudentDto;
+import edu.miu.waabackend.service.ICommentsService;
 import edu.miu.waabackend.service.IStudentService;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
@@ -17,7 +19,6 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -28,11 +29,13 @@ import java.util.*;
 public class StudentController {
 
     private final IStudentService studentService;
+    private final ICommentsService commentsService;
     private final RabbitTemplate rabbitTemplate;
 
     @Autowired
-    public StudentController(IStudentService studentService, RabbitTemplate rabbitTemplate) {
+    public StudentController(IStudentService studentService, ICommentsService commentsService, RabbitTemplate rabbitTemplate) {
         this.studentService = studentService;
+        this.commentsService = commentsService;
         this.rabbitTemplate = rabbitTemplate;
     }
 
@@ -88,6 +91,12 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
+    @PostMapping(value = "/addComment")
+    public ResponseEntity<CommentsDto> addComment(@RequestBody CommentsDto comment) {
+        commentsService.Insert(comment);
+        return ResponseEntity.ok(comment);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable long id) {
         studentService.Delete(id);
@@ -118,7 +127,7 @@ public class StudentController {
                 .serverUrl("http://localhost:8080")
                 .realm("waa-server")
                 .clientId("admin-cli")
-                .clientSecret("c7giVqTqfrElCDdnhmIi4q1VCd7XKF8w")
+                .clientSecret("YG9valQNIwJBqkoUOUwO6f7qRHvHddgo")
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .resteasyClient(new ResteasyClientBuilder()
                         .connectionPoolSize(10)

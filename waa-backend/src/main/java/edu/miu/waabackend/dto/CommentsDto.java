@@ -13,4 +13,5 @@ public class CommentsDto implements DTOEntity {
     private Long Id;
     private String comment;
     private FacultyDto faculty;
+    private StudentDto student;
 }

@@ -43,7 +43,7 @@ const StudentsData = () => {
 	}, {
 		name: 'Comments', selector: (row) => (
 			<RenderIf condition={isFaculty}>
-				<Comments comments={row.comments} onDelete={(comment) => handleDelete(comment, row.id)}/>
+				<Comments comments={row.comments} studentId={row.userId} onDelete={(comment) => handleDelete(comment, row.id)}/>
 			</RenderIf>
 		)
 	}]

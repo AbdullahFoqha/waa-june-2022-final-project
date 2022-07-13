@@ -16,7 +16,7 @@ const validationSchema = yup.object().shape({
 				  .required('FirstName is required'),
 	lastName: yup.string()
 				 .required('LastName is required'),
-	gpa: yup.number(),
+	gpa: yup.number().max(4),
 	password: yup.string('Enter your password')
 				 .min(8, 'Password should be of minimum 8 characters length')
 				 .required('Password is required'),
@@ -31,7 +31,7 @@ const Signup = () => {
 
 	const { errors, touched, handleSubmit, values, handleChange } = useFormik({
 		initialValues: {
-			firstName: '', lastName: '', email: '', password: '', confirmPassword: '', role: '', gpa: 0
+			firstName: '', lastName: '', email: '', password: '', confirmPassword: '', role: '', gpa: undefined
 		}, validationSchema,
 		onSubmit: async (values) => {
 			if(values.role === 'student') {

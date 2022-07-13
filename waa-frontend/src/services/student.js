@@ -13,6 +13,8 @@ const updateStudentById = async (id) => await client.put(`${baseUrl}/${id}`)
 
 const createStudent = async (student) => await client.post(`${baseUrl}`, student)
 
+const addComment = async (comment) => await client.post(`${baseUrl}/addComment`, comment)
+
 export default {
-	getStudentById, deleteStudentById, updateStudentById, createStudent
+	getStudentById, deleteStudentById, updateStudentById, createStudent, addComment
 }
