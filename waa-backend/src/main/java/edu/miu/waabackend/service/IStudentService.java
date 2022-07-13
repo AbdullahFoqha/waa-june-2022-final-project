@@ -8,7 +8,7 @@ import java.util.List;
 public interface IStudentService {
     List<DTOEntity> lstGetAll();
 
-    DTOEntity GetByPK(Long id);
+    DTOEntity GetByPK(String id);
 
     int Insert(DTOEntity studentDto);
 

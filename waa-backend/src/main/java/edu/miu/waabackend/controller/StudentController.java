@@ -45,13 +45,13 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DTOEntity> getStudentById(@PathVariable long id) {
+    public ResponseEntity<DTOEntity> getStudentById(@PathVariable String id) {
         return ResponseEntity.ok(studentService.GetByPK(id));
     }
 
     @PostMapping(value = "")
     public ResponseEntity<StudentDto> saveStudent(@RequestBody StudentDto student) {
-        rabbitTemplate.convertAndSend(RoutingValues.EXCHANGE_ONE.toString(), RoutingValues.ROUTING_KEY_ONE.toString(), student);
+        //rabbitTemplate.convertAndSend(RoutingValues.EXCHANGE_ONE.toString(), RoutingValues.ROUTING_KEY_ONE.toString(), student);
 
         CredentialRepresentation passwordCredentials = new CredentialRepresentation();
         passwordCredentials.setTemporary(false);
